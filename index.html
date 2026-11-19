@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carlos Alaniz · Fotografía y Video</title>
+<meta name="description" content="Carlos Alaniz, fotógrafo y productor audiovisual en Nicaragua. Cobertura de eventos corporativos, comerciales, documentales, 15 años y contenido para redes.">
+<meta property="og:title" content="Carlos Alaniz · Fotografía y Video">
+<meta property="og:description" content="Fotógrafo y productor audiovisual en Nicaragua.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0c; --bg2:#141416; --card:#1a1a1d; --line:#2a2a2e;
+  --text:#ececec; --muted:#9a9aa0; --accent:#e0a84f; --accent2:#c4452f;
+  --maxw:1240px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+h1,h2,h3,.display{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;letter-spacing:.02em;line-height:.95}
+.eyebrow{font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);font-weight:500}
+
+/* NAV */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,backdrop-filter .3s}
+nav.solid{background:rgba(11,11,12,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:"Bebas Neue";font-size:1.7rem;letter-spacing:.06em}
+.logo span{color:var(--accent)}
+.links{display:flex;gap:28px;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
+.links a{opacity:.75;transition:opacity .2s}.links a:hover{opacity:1}
+.burger{display:none;background:none;border:0;color:var(--text);font-size:1.6rem;cursor:pointer}
+
+/* HERO */
+.hero{min-height:100svh;display:flex;align-items:flex-end;position:relative;overflow:hidden;padding-bottom:9vh}
+.hero-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse at 70% 30%,rgba(224,168,79,.18),transparent 55%),
+  radial-gradient(ellipse at 15% 85%,rgba(196,69,47,.16),transparent 50%),var(--bg)}
+.hero-bg iframe{position:absolute;top:50%;left:50%;width:177.78vh;height:100vh;min-width:100%;min-height:56.25vw;transform:translate(-50%,-50%);border:0;opacity:.35;pointer-events:none}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 5%,transparent 60%)}
+.grain{position:absolute;inset:0;opacity:.06;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero .wrap{position:relative;z-index:2;width:100%}
+.hero h1{font-size:clamp(3.6rem,13vw,11rem);margin:14px 0 18px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{max-width:560px;color:#cfcfd3;font-size:1.1rem}
+.cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border:1px solid var(--text);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;transition:.25s}
+.btn:hover{background:var(--text);color:var(--bg)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#111}
+.btn.primary:hover{background:transparent;color:var(--accent)}
+
+/* SECTIONS */
+section{padding:110px 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:44px;flex-wrap:wrap}
+.head h2{font-size:clamp(2.8rem,7vw,5.5rem);margin-top:8px}
+.head p{max-width:420px;color:var(--muted)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:34px 20px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat b{font-family:"Bebas Neue";font-size:3.2rem;font-weight:400;color:var(--accent);display:block;line-height:1}
+.stat span{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+
+/* FILTERS */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filters button{background:none;border:1px solid var(--line);color:var(--muted);padding:9px 16px;font:500 .75rem Inter;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.filters button:hover{color:var(--text);border-color:#555}
+.filters button.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+/* VIDEO GRID */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.vcard{position:relative;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:var(--card);border:1px solid var(--line)}
+.vcard .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue";font-size:2.4rem;color:#2c2c31;letter-spacing:.05em;text-align:center;padding:10px;background:linear-gradient(135deg,#1c1c20,#121214)}
+.vcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s,opacity .3s;opacity:.85}
+.vcard:hover img{transform:scale(1.06);opacity:1}
+.vcard .info{position:absolute;inset:auto 0 0 0;padding:16px;background:linear-gradient(to top,rgba(0,0,0,.92),transparent);z-index:2}
+.vcard .info small{color:var(--accent);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+.vcard .info h3{font-size:1.5rem;margin-top:4px}
+.vcard .play{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.6);display:grid;place-items:center;z-index:2;transition:.25s;background:rgba(0,0,0,.3)}
+.vcard:hover .play{background:var(--accent);border-color:var(--accent);color:#111}
+.vcard .tag{position:absolute;top:14px;left:14px;z-index:2;font-size:.62rem;letter-spacing:.15em;padding:4px 8px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);text-transform:uppercase}
+.more{text-align:center;margin-top:34px}
+
+/* PHOTO GRID */
+.pgrid{columns:3 280px;column-gap:14px}
+.pgrid figure{break-inside:avoid;margin-bottom:14px;overflow:hidden;cursor:zoom-in;background:var(--card)}
+.pgrid img{width:100%;transition:transform .6s}
+.pgrid figure:hover img{transform:scale(1.04)}
+.empty{border:1px dashed var(--line);padding:60px 24px;text-align:center;color:var(--muted)}
+.empty b{display:block;font-family:"Bebas Neue";font-size:2rem;color:var(--text);font-weight:400;margin-bottom:8px}
+
+/* SERVICES */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.svc{background:var(--bg);padding:34px 28px;transition:background .3s}
+.svc:hover{background:var(--bg2)}
+.svc .n{font-family:"Bebas Neue";color:var(--accent);font-size:1.1rem;letter-spacing:.15em}
+.svc h3{font-size:2rem;margin:10px 0 10px}
+.svc p{color:var(--muted);font-size:.95rem}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center}
+.portrait{aspect-ratio:4/5;background:linear-gradient(160deg,#25211b,#121214);border:1px solid var(--line);display:flex;align-items:flex-end;padding:24px;color:var(--muted);font-size:.85rem;position:relative;overflow:hidden}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.about h2{font-size:clamp(2.6rem,6vw,4.6rem);margin:10px 0 22px}
+.about p{color:#c9c9ce;margin-bottom:16px;font-size:1.05rem}
+
+/* CLIENTS */
+.clients{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;gap:64px;width:max-content;animation:scroll 40s linear infinite}
+.track span{font-family:"Bebas Neue";font-size:2.4rem;color:#55555b;letter-spacing:.06em;white-space:nowrap}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* CONTACT */
+.contact{background:var(--bg2)}
+.cgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:60px}
+.contact h2{font-size:clamp(3rem,8vw,6.5rem)}
+.clist{display:flex;flex-direction:column;gap:2px;margin-top:10px}
+.clist a{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);font-size:1.1rem;transition:padding .25s,color .25s}
+.clist a:hover{padding-left:12px;color:var(--accent)}
+.clist a small{color:var(--muted);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
+
+footer{padding:34px 0;color:var(--muted);font-size:.8rem;border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal .box{width:min(1200px,100%);}
+.modal .frame{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+.modal .frame.v{aspect-ratio:9/16;max-height:82vh;width:auto;margin:0 auto}
+.modal iframe,.modal .frame img{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:contain}
+.modal .cap{display:flex;justify-content:space-between;margin-top:14px;gap:12px}
+.modal .cap h3{font-size:1.8rem}
+.modal .cap small{color:var(--accent);letter-spacing:.2em;text-transform:uppercase;font-size:.7rem}
+.close{position:absolute;top:18px;right:22px;background:none;border:0;color:#fff;font-size:2.2rem;cursor:pointer;line-height:1}
+
+.wa{position:fixed;right:20px;bottom:20px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:transform .2s}
+.wa:hover{transform:scale(1.08)}
+
+.reveal{transform:translateY(18px);transition:transform .8s}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:860px){
+  .links{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;background:var(--bg);padding:24px 20px;gap:18px;border-bottom:1px solid var(--line)}
+  .links.open{display:flex}
+  .burger{display:block}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .about,.cgrid{grid-template-columns:1fr;gap:36px}
+  .services{grid-template-columns:1fr}
+  section{padding:80px 0}
+}
+@media (prefers-reduced-motion:reduce){.track{animation:none}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#inicio" class="logo">CARLOS <span>ALANIZ</span></a>
+    <button class="burger" aria-label="Menú" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
+    <div class="links" onclick="this.classList.remove('open')">
+      <a href="#video">Video</a>
+      <a href="#fotografia">Fotografía</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="grain"></div>
+  <div class="wrap">
+    <div class="eyebrow">Fotografía · Video · Producción audiovisual · Nicaragua</div>
+    <h1>Historias que<br>se <em>sienten</em></h1>
+    <p>Soy Carlos Alaniz, fotógrafo y productor audiovisual. Capturo marcas, eventos y personas con mirada cinematográfica.</p>
+    <div class="cta">
+      <a href="#video" class="btn primary">Ver portafolio ▸</a>
+      <a href="#contacto" class="btn">Cotizar proyecto</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats reveal">
+    <div class="stat"><b id="statVideos">60+</b><span>Producciones</span></div>
+    <div class="stat"><b>20+</b><span>Marcas</span></div>
+    <div class="stat"><b>4K</b><span>Calidad cine</span></div>
+    <div class="stat"><b>H + V</b><span>Formato web y redes</span></div>
+  </div>
+</div>
+
+<section id="video">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><div class="eyebrow">Portafolio</div><h2>Video</h2></div>
+      <p>Comerciales, coberturas corporativas, documentales y contenido para redes. Toca cualquier video para verlo.</p>
+    </div>
+    <div class="filters" id="vfilters"></div>
+    <div class="vgrid" id="vgrid"></div>
+    <div class="more"><button class="btn" id="vmore">Ver más videos</button></div>
+  </div>
+</section>
+
+<section id="fotografia" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><div class="eyebrow">Portafolio</div><h2>Fotografía</h2></div>
+      <p>Retratos, eventos, producto y momentos que cuentan algo.</p>
+    </div>
+    <div class="filters" id="pfilters"></div>
+    <div class="pgrid" id="pgrid"></div>
+  </div>
+</section>
+
+<div class="clients"><div class="track" id="track"></div></div>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><div class="eyebrow">Qué hago</div><h2>Servicios</h2></div>
+      <p>Desde la idea hasta la entrega final, en formato horizontal para web y vertical para redes.</p>
+    </div>
+    <div class="services">
+      <div class="svc reveal"><div class="n">01</div><h3>Eventos corporativos</h3><p>Cobertura de lanzamientos, activaciones, ferias y conferencias, con recap listo para redes.</p></div>
+      <div class="svc reveal"><div class="n">02</div><h3>Comerciales y marca</h3><p>Videos de producto, campañas y piezas publicitarias en 4K, con guion, rodaje y edición.</p></div>
+      <div class="svc reveal"><div class="n">03</div><h3>Contenido para redes</h3><p>Reels y videos verticales mensuales para marcas, profesionales y negocios.</p></div>
+      <div class="svc reveal"><div class="n">04</div><h3>15 años y eventos sociales</h3><p>Highlights cinematográficos y fotografía de quinceañeras, cumpleaños y celebraciones.</p></div>
+      <div class="svc reveal"><div class="n">05</div><h3>Conciertos y cultura</h3><p>Registro de presentaciones en vivo, academias y eventos culturales.</p></div>
+      <div class="svc reveal"><div class="n">06</div><h3>Documental</h3><p>Historias reales con sensibilidad social, como la serie <i>La Luz de Diana</i>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre-mi" style="padding-top:0">
+  <div class="wrap about">
+    <div class="portrait reveal" id="portrait">[ Tu foto aquí ]</div>
+    <div class="reveal">
+      <div class="eyebrow">Sobre mí</div>
+      <h2>Carlos Alaniz</h2>
+      <p>Fotógrafo y productor audiovisual en Nicaragua. He trabajado con marcas como Moutai, Holcim, Disensa, Unilever, Dove y TRESemmé, cubriendo eventos, creando comerciales y produciendo contenido para redes.</p>
+      <p>Además de mi trabajo con clientes, desarrollo proyectos propios: el documental social <i>La Luz de Diana</i>, el motoblog <i>Alaniz Moto Trip</i> y piezas de cine experimental con <i>Ruido Visual</i>.</p>
+      <p style="color:var(--muted);font-size:.9rem">[Texto provisional: lo ajustamos con tu biografía real.]</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap cgrid">
+    <div class="reveal">
+      <div class="eyebrow">Contacto</div>
+      <h2>¿Hacemos algo juntos?</h2>
+      <p style="color:var(--muted);max-width:420px;margin-top:18px">Cuéntame de tu proyecto y te envío una cotización.</p>
+    </div>
+    <div class="clist reveal" id="clist"></div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© <span id="yr"></span> Carlos Alaniz · Fotografía y Video</span><span>Nicaragua</span></div></footer>
+
+<a class="wa" id="wa" href="#contacto" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg></a>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <button class="close" onclick="closeModal()" aria-label="Cerrar">×</button>
+  <div class="box">
+    <div class="frame" id="mframe"></div>
+    <div class="cap"><div><small id="mcat"></small><h3 id="mtitle"></h3></div></div>
+  </div>
+</div>
+
+<script>
+/* ====== DATOS QUE CARLOS PUEDE EDITAR ====== */
+const CONTACTO = {
+  whatsapp: "",            // ej: "50588887777" (con código de país, sin + ni espacios)
+  email: "carlosalanizfotografia@gmail.com",
+  facebook: "https://www.facebook.com/CarlosAlanizFotografia",
+  instagram: "",
+  youtube: "",
+  tiktok: ""
+};
+const HERO_VIDEO = "";     // id de Drive de un video para el fondo del inicio (opcional)
+const RETRATO = "";        // url de tu foto para "Sobre mí"
+
+const CATEGORIAS = {
+  corporativo:"Eventos corporativos", comercial:"Comerciales y marca", redes:"Contenido para redes",
+  social:"15 años y sociales", conciertos:"Conciertos y cultura", documental:"Documental", propios:"Proyectos propios"
+};
+const VIDEOS = [{"id":"1d612EGJd2U-bZfkeeThBXs2hmkiSDuwu","cat":"corporativo","client":"TRESemmé","title":"Erick Bendaña","year":"2026","o":"H"},{"id":"18bVaM0bcvdYP2uS3IAYlhPb-j1Ae1e8i","cat":"corporativo","client":"Seytu","title":"Masterclass","year":"2026","o":"H"},{"id":"1J1Yz2zqQHKPR5u5GfMeiMr2RyJnqmJh2","cat":"corporativo","client":"Holcim","title":"Expo Construir Crowne Plaza","year":"2026","o":"H"},{"id":"1KSZ0blo8PJJ8kcg7vQ2T4iW56KXEDRgj","cat":"corporativo","client":"Plaza Natura","title":"Cobertura Festival Chocoart","year":"2026","o":"H"},{"id":"1fYap7uRR5zSLnIAWC8lEOgkv6lRGi4Qg","cat":"corporativo","client":"Disensa","title":"Ebenezer Tola","year":"2026","o":"H"},{"id":"1YMUkoZ3kj5X8otSM_EX51QD4k0yCYAL0","cat":"corporativo","client":"Moutai","title":"Reel Brindis","year":"2026","o":"V"},{"id":"16UUNKKzzCexKp2Pa68nE3aywfXekIyXi","cat":"corporativo","client":"Disensa","title":"Expo Ferre","year":"2026","o":"H"},{"id":"1n8MXhbFiESB-wwZqFuKIL_3mmHUWYG5B","cat":"corporativo","client":"Disensa","title":"Dia Rojo Chontales","year":"2026","o":"H"},{"id":"1DRPMVSGC9zJA4yE62zmfTBjzIVDjOxnG","cat":"corporativo","client":"Holcim","title":"Diplomas Lean In Girls Nicaphoto","year":"2026","o":"H"},{"id":"1fvzfSTYimNuKEUmPJ7qH9yVeCny6ZI1y","cat":"corporativo","client":"Holcim","title":"Ruta del Albañil Managua Nov","year":"2026","o":"H"},{"id":"131kucy7TWAHLhpWN5nZY6wGnlQcqD3Fe","cat":"corporativo","client":"Moutai","title":"Lanzamiento Oficial Nicaragua","year":"2026","o":"H"},{"id":"1XgxWdlGTtXD70Aq5IdGgmJS-fGKS6QuD","cat":"corporativo","client":"Moutai","title":"Recap Olof Palme","year":"2026","o":"H"},{"id":"1YIC9StKfnNCX05zVwbA-GO0fMt2ExgCD","cat":"corporativo","client":"Unilever","title":"Kickoff","year":"2025","o":"H"},{"id":"1hjATwdJ39pK45VCF0u4N0Il4_l9V-IWj","cat":"corporativo","client":"Axe y TRESemmé","title":"Evento Expo Ivette","year":"2024","o":"H"},{"id":"133rzRgGwhA0oVqXuUQlrZEByuehkWgQW","cat":"corporativo","client":"Xedex","title":"Activacion","year":"2024","o":"H"},{"id":"19Wi7gCd6SI85DV9_i6owzZFD-uQuy8ne","cat":"corporativo","client":"Sedal","title":"Activacion Septiembre","year":"2024","o":"H"},{"id":"1t-ja4bBu4CE3Tzp8IQIYhnvfd27KDKuO","cat":"corporativo","client":"TRESemmé","title":"Erick Bendaña","year":"2024","o":"H"},{"id":"17_Rh3nYJSW3AXSzsRocp_pOk8qykspXl","cat":"comercial","client":"Gustazo","title":"Chilate","year":"2026","o":"H"},{"id":"1YGLVBxrJpFYf6AobpwtpIQqf8Z7oFyuh","cat":"comercial","client":"Tendencias Material","title":"Todo Puede Pasar","year":"2026","o":"H"},{"id":"1A1wP6jqBzC-vbS2G2Ze9RDspk1oUii1K","cat":"comercial","client":"Mordor","title":"Video 4K","year":"2026","o":"H"},{"id":"1JmOSGpQMZjdV2BOLWKdc5fS7d-qbApfA","cat":"comercial","client":"Plaza Natura","title":"Reel Chocoart","year":"2026","o":"H"},{"id":"1nDS9n4GYgR4kcGuQCJD5gDuM4MDby-R4","cat":"comercial","client":"Mordor","title":"Cromart","year":"2026","o":"H"},{"id":"1hkVD3c0Bbbqth-NoWZuemB82ojVuFMj_","cat":"comercial","client":"Tendencias Material","title":"Doña Martha","year":"2026","o":"H"},{"id":"1nfOp2rAJbG_ga4ypNXbkm2Wlu2IaZW6l","cat":"comercial","client":"Kreativos","title":"Reel Don Mario","year":"2026","o":"H"},{"id":"1ddyltacT50_bgoqmGWJKZEZzrwbsFyDQ","cat":"comercial","client":"Wapas","title":"Biotopos 4K","year":"2026","o":"H"},{"id":"13hFFpcubB6bHCvis_tXm7Zlv4wDRRewX","cat":"comercial","client":"Tendencias Material","title":"General","year":"2026","o":"V"},{"id":"1j1NxpE9SBEKMpro8VE6K2DkDh-ROUXku","cat":"comercial","client":"Bansbach","title":"Reel","year":"2026","o":"H"},{"id":"1HysA8E9k86GLHXpXxuLrzhVJPwaiLe_T","cat":"comercial","client":"Gustazo","title":"Video General","year":"2026","o":"H"},{"id":"1zG48hW7ALR23tYKftyN1xcDbo_EDMXmh","cat":"comercial","client":"Gustazo","title":"Industrial","year":"2026","o":"H"},{"id":"17xOsFWvr1dLuPdRvxG0kHXU9hhlL8gc4","cat":"comercial","client":"Moutai","title":"Video Principal","year":"2026","o":"H"},{"id":"1bGgMmAAUPh8dTRtXvijb_-ZZ2TQ3lhsw","cat":"comercial","client":"Bienes Raices","title":"Casa Edificio Escala 4K","year":"2026","o":"H"},{"id":"1QvMcsOYwEc-MNI37f6vSc4fKq2FSNTp2","cat":"comercial","client":"Fitstudio","title":"Video General 4K","year":"2025","o":"H"},{"id":"1qek52-szCnBxBzCitlsktwcuZhgNd4lU","cat":"comercial","client":"Savile","title":"Ciclica Febrero","year":"2025","o":"H"},{"id":"1BV-PachRPuFJqE8uT8KdygvXiWkD84r0","cat":"comercial","client":"Fitstudio","title":"Reel 06","year":"2025","o":"H"},{"id":"1AdBEZ2UuBJI0HEAssru7hCEgHsx3LC0U","cat":"comercial","client":"Fitstudio","title":"Reel 07","year":"2025","o":"H"},{"id":"1OTh55OgDWLy_x4DtjVUR_s7E9OxnEaop","cat":"comercial","client":"Fitstudio","title":"Reel 01","year":"2025","o":"H"},{"id":"1dDph-fSCc6zzT4jemthtQE_YHFSSs59x","cat":"comercial","client":"Fitstudio","title":"Instructor","year":"2025","o":"H"},{"id":"14hlqlq8fOu0VDF5N_MxazJArKodXlkV2","cat":"comercial","client":"Fitstudio","title":"Reel 05","year":"2025","o":"H"},{"id":"1ForraGtWkC7VS_vDHxOFoBoL_xqBuDmd","cat":"comercial","client":"Fitstudio","title":"Reel 04","year":"2025","o":"H"},{"id":"1zIcA9JUGQv70AAg3HLa2VYOtRw4Ve01N","cat":"comercial","client":"TRESemmé","title":"Ciclica Febrero","year":"2025","o":"H"},{"id":"1wVz_En1exOxdDugWZc9o87O-j_aezF_l","cat":"comercial","client":"Fitstudio","title":"Reel 02","year":"2025","o":"H"},{"id":"15rSl-UpcNbSfAMF-pqHPy0gWCZKWhMV1","cat":"comercial","client":"Fitstudio","title":"Reel 03","year":"2025","o":"H"},{"id":"1HAq8oGAhsjzg7eSoxI0gdj1VV-iZWoF4","cat":"comercial","client":"Fitstudio","title":"Mama","year":"2025","o":"H"},{"id":"1nMNBQTUmXzew4R6nU8MtrowpdSsVQQuE","cat":"comercial","client":"Fitstudio","title":"Reel 08","year":"2025","o":"H"},{"id":"1SDXzGjhjnVKuYx-lY2WRahFVuXU78NoY","cat":"comercial","client":"Dove","title":"Nutri Reto","year":"2024","o":"H"},{"id":"18MZx7867yd-d9ljFyKZu8GA3ivqm_gqN","cat":"comercial","client":"Dove","title":"Nutri Reto Reel","year":"2024","o":"H"},{"id":"1Mkc5nbbp7kJ6jydLQjgJyk7Rh2H5q053","cat":"comercial","client":"Gustazo","title":"Tutorial Ivania","year":"","o":"H"},{"id":"1_CGPp4CCB7-vFHGxYY4Qr30XbY72j0tm","cat":"comercial","client":"Gustazo","title":"Producto Semilla de Jicaro","year":"","o":"H"},{"id":"1ZwYL1CIi0eOc-fJOc4QylCMjH9v2PlnQ","cat":"comercial","client":"Gustazo","title":"Producto Cacao","year":"","o":"H"},{"id":"1E3hsH6MwjfndQMuYCLtmZ4XW6AziVfBn","cat":"comercial","client":"Gustazo","title":"Producto Pinolillo","year":"","o":"H"},{"id":"1JRG-FxEKqJbbcw8M1GJ0Kqx18VlzAD1q","cat":"comercial","client":"Gustazo","title":"Producto Policereal","year":"","o":"H"},{"id":"1dR6jM2p_M7idCNieiPlzFa5x8Wuj4rcg","cat":"redes","client":"Dr. Matus","title":"Reel 01 Oct","year":"2026","o":"V"},{"id":"1A-pDESdDUUImcWN0LgLrNTkB1SeSbq9U","cat":"redes","client":"Dr. Matus","title":"Reel 01 Nov","year":"2026","o":"V"},{"id":"1t0YzLVyGRNrpGCxF1orPoGJ57sb6FjIV","cat":"redes","client":"Dr. Matus","title":"Reel 03 Oct","year":"2026","o":"V"},{"id":"1rieqISl7l4Cv0QELH8vUYy0zQRTr4pm6","cat":"redes","client":"Dr. Matus","title":"Reel 02 Oct","year":"2026","o":"V"},{"id":"1KiawA1WdK5ojMwp9KCN4o_XuVwh-16m5","cat":"social","client":"15 Años","title":"Libdania Camoapa Highlight","year":"2026","o":"H"},{"id":"1WZRFBWMNLlzONmZBkJiNAHKU5msj5vYg","cat":"social","client":"Cumpleaños","title":"Elias","year":"2026","o":"H"},{"id":"1tTzjmTnf1bKDmah0diX49XPeY5whkfZp","cat":"social","client":"15 Años","title":"Lourdes y Tadeo","year":"2025","o":"H"},{"id":"1NDw4qkXwgI8KIXnl76Bw9qxiQDC0qDOM","cat":"conciertos","client":"Domisol","title":"Academia Sonata","year":"2026","o":"H"},{"id":"1b0GUuqAz1i9Tfahle2fmk7yMu3IN25Zo","cat":"documental","client":"La Luz De Diana","title":"Liberia","year":"2026","o":"H"},{"id":"1DenxSpUh4cmMk0Poq4z_RRPB_7QukYpl","cat":"documental","client":"La Luz De Diana","title":"Ponderosa","year":"2026","o":"H"},{"id":"1bCmcKZ3fX-dbCIGTH-PyXjIH7Zp-enI6","cat":"documental","client":"La Luz De Diana","title":"Chichigalpa","year":"2026","o":"H"},{"id":"10suaZLbzNEc9nawhSqTFH3d5Iy0rl_6g","cat":"documental","client":"La Luz De Diana","title":"Pico de Garza","year":"2024","o":"H"},{"id":"1Czz2kNL8qairUoL0m-atITawA1qbuxFr","cat":"documental","client":"La Luz De Diana","title":"Fer Halloween","year":"2024","o":"H"},{"id":"1DXABe5PHirK1El_76TuiCRcyIK6N8WxU","cat":"propios","client":"Motoblog","title":"Nicaphoto Nagarote","year":"2026","o":"H"},{"id":"198Frzgm7_6S9lb7hI-FR8g5fsV0Osf00","cat":"propios","client":"Motoblog","title":"Emir y Fancy Store","year":"2026","o":"H"},{"id":"1YZ84S7T-TnixfwGCD0yDvG2itaOZMTlj","cat":"propios","client":"Ruido Visual","title":"Reel 01","year":"2025","o":"H"},{"id":"1gH-LaM5OtZ4TaZbNNIEqMPTW6vn5JlNz","cat":"propios","client":"Alaniz Moto Trip","title":"Piloto 01","year":"2025","o":"H"},{"id":"1PTVMSLu-mf3ZtXwMi4lSpBnR50JeiHq4","cat":"propios","client":"Ruido Visual","title":"Santos","year":"2025","o":"H"}];
+
+/* Fotos: agrega objetos { src:"fotos/archivo.jpg", cat:"Retratos", title:"..." } */
+const FOTOS = [];
+
+const CLIENTES = ["Moutai","Holcim","Disensa","Unilever","Dove","TRESemmé","Sedal","Axe","Seytu","FitStudio","Gustazo","Plaza Natura","Tendencias Material","Bansbach","Savile","Xedex","Wapas","Kreativos","Mordor","Dr. Matus"];
+
+/* ====== LÓGICA ====== */
+const $=s=>document.querySelector(s);
+const thumb=id=>`https://drive.google.com/thumbnail?id=${id}&sz=w800`;
+let vcat="todos", shown=12;
+function renderVFilters(){
+  const cats=["todos",...Object.keys(CATEGORIAS).filter(c=>VIDEOS.some(v=>v.cat===c))];
+  $("#vfilters").innerHTML=cats.map(c=>`<button class="${c===vcat?'on':''}" data-c="${c}">${c==='todos'?'Todos':CATEGORIAS[c]}</button>`).join("");
+  $("#vfilters").querySelectorAll("button").forEach(b=>b.onclick=()=>{vcat=b.dataset.c;shown=12;renderVFilters();renderVideos()});
+}
+function renderVideos(){
+  const list=VIDEOS.filter(v=>vcat==="todos"||v.cat===vcat);
+  $("#vgrid").innerHTML=list.slice(0,shown).map((v,i)=>`
+    <div class="vcard" data-i="${VIDEOS.indexOf(v)}">
+      <div class="ph">${v.client}</div>
+      <img loading="lazy" src="${thumb(v.id)}" alt="${v.client} - ${v.title}" onerror="this.remove()">
+      ${v.o==='V'?'<span class="tag">Vertical</span>':''}
+      <span class="play">▶</span>
+      <div class="info"><small>${v.client}${v.year?' · '+v.year:''}</small><h3>${v.title}</h3></div>
+    </div>`).join("");
+  $("#vgrid").querySelectorAll(".vcard").forEach(c=>c.onclick=()=>openVideo(VIDEOS[c.dataset.i]));
+  $("#vmore").style.display=list.length>shown?"":"none";
+}
+$("#vmore").onclick=()=>{shown+=12;renderVideos()};
+
+function openVideo(v){
+  const f=$("#mframe"); f.className="frame"+(v.o==='V'?' v':'');
+  f.innerHTML=`<iframe src="https://drive.google.com/file/d/${v.id}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+  $("#mcat").textContent=v.client+(v.year?" · "+v.year:""); $("#mtitle").textContent=v.title;
+  $("#modal").classList.add("open"); document.body.style.overflow="hidden";
+}
+function openPhoto(p){
+  const f=$("#mframe"); f.className="frame"; f.innerHTML=`<img src="${p.src}" alt="">`;
+  $("#mcat").textContent=p.cat||""; $("#mtitle").textContent=p.title||"";
+  $("#modal").classList.add("open"); document.body.style.overflow="hidden";
+}
+function closeModal(){ $("#modal").classList.remove("open"); $("#mframe").innerHTML=""; document.body.style.overflow=""; }
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+
+let pcat="Todas";
+function renderPhotos(){
+  if(!FOTOS.length){ $("#pgrid").outerHTML=`<div class="empty"><b>Galería en preparación</b>Pronto vas a ver aquí una selección de mis mejores fotografías.</div>`; return; }
+  const cats=["Todas",...new Set(FOTOS.map(p=>p.cat).filter(Boolean))];
+  $("#pfilters").innerHTML=cats.length>2?cats.map(c=>`<button class="${c===pcat?'on':''}" data-c="${c}">${c}</button>`).join(""):"";
+  $("#pfilters").querySelectorAll("button").forEach(b=>b.onclick=()=>{pcat=b.dataset.c;renderPhotos()});
+  const list=FOTOS.filter(p=>pcat==="Todas"||p.cat===pcat);
+  $("#pgrid").innerHTML=list.map(p=>`<figure data-i="${FOTOS.indexOf(p)}"><img loading="lazy" src="${p.src}" alt="${p.title||''}"></figure>`).join("");
+  $("#pgrid").querySelectorAll("figure").forEach(f=>f.onclick=()=>openPhoto(FOTOS[f.dataset.i]));
+}
+
+function renderContact(){
+  const rows=[];
+  if(CONTACTO.whatsapp){ const u="https://wa.me/"+CONTACTO.whatsapp+"?text="+encodeURIComponent("Hola Carlos, vi tu portafolio y quiero cotizar un proyecto."); rows.push(["WhatsApp","+"+CONTACTO.whatsapp,u]); $("#wa").href=u; $("#wa").target="_blank"; }
+  else $("#wa").style.display="none";
+  if(CONTACTO.email) rows.push(["Correo",CONTACTO.email,"mailto:"+CONTACTO.email]);
+  if(CONTACTO.instagram) rows.push(["Instagram","Instagram",CONTACTO.instagram]);
+  if(CONTACTO.facebook) rows.push(["Facebook","Carlos Alaniz Fotografía",CONTACTO.facebook]);
+  if(CONTACTO.youtube) rows.push(["YouTube","YouTube",CONTACTO.youtube]);
+  if(CONTACTO.tiktok) rows.push(["TikTok","TikTok",CONTACTO.tiktok]);
+  $("#clist").innerHTML=rows.map(([k,v,u])=>`<a href="${u}" target="_blank" rel="noopener"><span>${v}</span><small>${k} ↗</small></a>`).join("");
+}
+
+$("#track").innerHTML=[...CLIENTES,...CLIENTES].map(c=>`<span>${c}</span>`).join("");
+$("#statVideos").textContent=VIDEOS.length+"+";
+$("#yr").textContent=new Date().getFullYear();
+if(HERO_VIDEO) $("#heroBg").insertAdjacentHTML("afterbegin",`<iframe src="https://drive.google.com/file/d/${HERO_VIDEO}/preview" allow="autoplay"></iframe>`);
+if(RETRATO) $("#portrait").innerHTML=`<img src="${RETRATO}" alt="Carlos Alaniz">`;
+
+renderVFilters(); renderVideos(); renderPhotos(); renderContact();
+
+addEventListener("scroll",()=>$("#nav").classList.toggle("solid",scrollY>40));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
