@@ -474,9 +474,9 @@ function renderPhotos(){
   let sub=document.getElementById("pbodas");
   if(pcat==="Bodas"){
     const parejas=[...new Set(FOTOS.filter(p=>p.cat==="Bodas"&&/^Boda /.test(p.title)).map(p=>p.title))];
-    if(!sub){ sub=document.createElement("div"); sub.id="pbodas"; sub.className="filters"; $("#pfilters").after(sub); }
-    sub.innerHTML=["Todas",...parejas].map(t=>`<button class="${t===pboda?'on':''}" data-b="${t}">${t==="Todas"?"Todas las parejas":t.replace(/^Boda /,"")}</button>`).join("");
-    sub.querySelectorAll("button").forEach(b=>b.onclick=()=>{pboda=b.dataset.b;pshown=18;renderPhotos()});
+    if(!sub){ sub=document.createElement("div"); sub.id="pbodas"; sub.className="vsel"; $("#pfilters").after(sub); }
+    sub.innerHTML=`<label><span>Pareja</span><select>${["Todas",...parejas].map(t=>`<option value="${t}" ${t===pboda?'selected':''}>${t==="Todas"?"Todas las parejas":t.replace(/^Boda /,"")}</option>`).join("")}</select></label>`;
+    sub.querySelector("select").onchange=e=>{pboda=e.target.value;pshown=18;renderPhotos()};
   } else { pboda="Todas"; if(sub) sub.remove(); }
   const list=FOTOS.filter(p=>(pcat==="Todas"||p.cat===pcat)&&(pboda==="Todas"||p.title===pboda));
   $("#pmore").style.display=list.length>pshown?"":"none";
