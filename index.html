@@ -6,7 +6,16 @@
 <title>Carlos Alaniz · Fotografía y Video</title>
 <meta name="description" content="Carlos Alaniz, fotógrafo y productor audiovisual en Nicaragua. Cobertura de eventos corporativos, comerciales, documentales, 15 años y contenido para redes.">
 <meta property="og:title" content="Carlos Alaniz · Fotografía y Video">
-<meta property="og:description" content="Fotógrafo y productor audiovisual en Nicaragua.">
+<meta property="og:description" content="Fotógrafo y productor audiovisual en Nicaragua. Bodas, eventos, comerciales y contenido para redes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://carlosalanizfotografia.com/">
+<meta property="og:image" content="https://carlosalanizfotografia.com/fotos/g/bts-2-19.jpg">
+<meta property="og:locale" content="es_NI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carlos Alaniz · Fotografía y Video">
+<meta name="twitter:description" content="Fotógrafo y productor audiovisual en Nicaragua.">
+<meta name="twitter:image" content="https://carlosalanizfotografia.com/fotos/g/bts-2-19.jpg">
+<link rel="canonical" href="https://carlosalanizfotografia.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -228,6 +237,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .mshare{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .mshare .share{margin:0}
 .mshare[hidden]{display:none}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.tcard{margin:0;border:1px solid var(--line);padding:26px}
+.tcard blockquote{margin:0 0 16px;font-size:1.02rem;line-height:1.6;color:var(--text)}
+.tcard figcaption b{display:block;font-weight:600}
+.tcard figcaption small{display:block;color:var(--muted);margin-top:3px}
+#testimonios[hidden]{display:none}
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 18px;font:500 .8rem Inter;z-index:300;opacity:0;transition:opacity .25s;pointer-events:none}
 .toast.show{opacity:1}
 </style>
@@ -257,8 +272,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     <h1>Historias que<br>se <em>sienten</em></h1>
     <p>Soy Carlos Alaniz, fotógrafo y productor audiovisual con más de 20 años de experiencia. Capturo marcas, eventos y personas con mirada cinematográfica.</p>
     <div class="cta">
-      <a href="#video" class="btn primary">Ver portafolio ▸</a>
-      <a href="#contacto" class="btn">Cotizar proyecto</a>
+      <a href="#contacto" class="btn primary" data-track="cotizar_hero">Cotiza tu proyecto ▸</a>
+      <a href="#video" class="btn">Ver portafolio</a>
     </div>
   </div>
 </header>
@@ -344,6 +359,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </div>
 </section>
 
+<section id="testimonios" hidden style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal"><div><div class="eyebrow">Clientes</div><h2>Lo que dicen</h2></div></div>
+    <div class="tgrid" id="tgrid"></div>
+  </div>
+</section>
+
 <section class="contact" id="contacto">
   <div class="wrap cgrid">
     <div class="reveal">
@@ -372,6 +394,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <script>
 /* ====== DATOS QUE CARLOS PUEDE EDITAR ====== */
+const TESTIMONIOS = [
+  // Agrega aquí testimonios reales. Ejemplo:
+  // { texto: "Trabajo profesional y puntual.", nombre: "Nombre Apellido", cargo: "Empresa o cargo" }
+];
+const TRACKING = {
+  metaPixel: "",   // ID del Píxel de Meta (solo números). Vacío = desactivado
+  ga4: ""          // ID de Google Analytics 4 (G-XXXXXXX). Vacío = desactivado
+};
 const CONTACTO = {
   whatsapp: "50588039928",
   email: "carlosalanizfotografia@gmail.com",
@@ -574,6 +604,18 @@ openPhoto=function(l,i){ $("#mshare").hidden=true; _openPhotoBase(l,i); };
   else if(k==="fotos"){ if(FOTOS.some(p=>p.cat===val)){ pcat=val; pboda="Todas"; pshown=18; renderPhotos(); go("fotografia"); } }
   else if(k==="pareja"){ if(FOTOS.some(p=>p.cat==="Bodas"&&p.title===val)){ pcat="Bodas"; pboda=val; pshown=18; renderPhotos(); go("fotografia"); } }
 })();
+
+/* ---- Medición (solo se activa si pones los IDs en TRACKING) ---- */
+if(TRACKING.metaPixel){ !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js"); fbq("init",TRACKING.metaPixel); fbq("track","PageView"); }
+if(TRACKING.ga4){ const g=document.createElement("script"); g.async=true; g.src="https://www.googletagmanager.com/gtag/js?id="+TRACKING.ga4; document.head.appendChild(g); window.dataLayer=window.dataLayer||[]; window.gtag=function(){dataLayer.push(arguments)}; gtag("js",new Date()); gtag("config",TRACKING.ga4); }
+function track(ev,params){ if(TRACKING.metaPixel&&window.fbq) fbq("trackCustom",ev,params||{}); if(TRACKING.ga4&&window.gtag) gtag("event",ev,params||{}); }
+document.addEventListener("click",e=>{ const a=e.target.closest("a[href*='wa.me'], a[data-track]"); if(!a) return; track(a.dataset.track||"whatsapp_click",{url:a.href.slice(0,120)}); });
+
+/* ---- Testimonios (la sección aparece solo si hay testimonios) ---- */
+if(TESTIMONIOS.length){
+  document.getElementById("testimonios").hidden=false;
+  document.getElementById("tgrid").innerHTML=TESTIMONIOS.map(t=>`<figure class="tcard"><blockquote>“${t.texto}”</blockquote><figcaption><b>${t.nombre}</b>${t.cargo?`<small>${t.cargo}</small>`:""}</figcaption></figure>`).join("");
+}
 </script>
 </body>
 </html>
