@@ -223,6 +223,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   footer{padding-bottom:96px}
 }
 @media (prefers-reduced-motion:reduce){.track{animation:none}.reveal{opacity:1;transform:none}}
+.share{display:inline-flex;align-items:center;gap:6px;background:none;border:1px solid var(--line);color:var(--muted);padding:8px 14px;font:500 .72rem Inter;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;margin:-8px 0 22px}
+.share:hover{color:var(--text);border-color:#555}
+.mshare{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.mshare .share{margin:0}
+.mshare[hidden]{display:none}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 18px;font:500 .8rem Inter;z-index:300;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.show{opacity:1}
 </style>
 </head>
 <body>
@@ -277,6 +284,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <label><span>Año</span><select id="vanio"></select></label>
       <small id="vcount"></small>
     </div>
+    <button class="share" id="vshare">Copiar enlace de esta sección</button>
     <div class="vgrid" id="vgrid"></div>
     <div class="more"><button class="btn" id="vmore">Ver más videos</button></div>
   </div>
@@ -289,6 +297,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <p>Retratos, bodas, niños y familia, aves y paisajes de Nicaragua: momentos que cuentan algo.</p>
     </div>
     <div class="filters" id="pfilters"></div>
+    <button class="share" id="pshare">Copiar enlace de esta sección</button>
     <div class="pgrid" id="pgrid"></div>
     <div class="more"><button class="btn" id="pmore" onclick="pshown+=18;renderPhotos()">Ver más fotos</button></div>
   </div>
@@ -357,6 +366,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   <div class="box">
     <div class="frame" id="mframe"></div>
     <div class="cap"><div><small id="mcat"></small><h3 id="mtitle"></h3></div><span class="count" id="mcount"></span></div>
+    <div class="mshare" id="mshare" hidden><a class="share" id="mwa" target="_blank" rel="noopener">Enviar por WhatsApp</a><button class="share" id="mcopy">Copiar enlace</button></div>
   </div>
 </div>
 
@@ -534,6 +544,36 @@ cargarHoja();
 addEventListener("scroll",()=>$("#nav").classList.toggle("solid",scrollY>40));
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+/* ---- Enlaces para compartir ---- */
+function toast(m){ let t=document.getElementById("toast"); if(!t){ t=document.createElement("div"); t.id="toast"; t.className="toast"; document.body.appendChild(t); } t.textContent=m; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1800); }
+function copyText(t){ const ok=()=>toast("Enlace copiado"); if(navigator.clipboard){ navigator.clipboard.writeText(t).then(ok).catch(()=>prompt("Copia este enlace:",t)); } else prompt("Copia este enlace:",t); }
+function siteBase(){ return location.origin+location.pathname; }
+$("#vshare").onclick=()=>copyText(siteBase()+"#vcat="+encodeURIComponent(vcat));
+$("#pshare").onclick=()=>copyText(siteBase()+(pcat==="Bodas"&&pboda!=="Todas" ? "#pareja="+encodeURIComponent(pboda) : "#fotos="+encodeURIComponent(pcat)));
+const _openVideoBase=openVideo;
+openVideo=function(v){
+  _openVideoBase(v);
+  const link=siteBase()+"#video="+encodeURIComponent(v.id);
+  $("#mwa").href="https://wa.me/?text="+encodeURIComponent(`${v.client} · ${v.title}: ${link}`);
+  $("#mcopy").onclick=()=>copyText(link);
+  $("#mshare").hidden=false;
+};
+const _closeModalBase=closeModal;
+closeModal=function(){ _closeModalBase(); $("#mshare").hidden=true; };
+const _openPhotoBase=openPhoto;
+openPhoto=function(l,i){ $("#mshare").hidden=true; _openPhotoBase(l,i); };
+/* Abrir la sección o el video que venga en el enlace */
+(function(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  if(!h) return;
+  const [k,...r]=h.split("="); const val=r.join("=");
+  const go=id=>setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:"smooth"}),200);
+  if(k==="video"){ const v=VIDEOS.find(x=>x.id===val); if(v){ go("video"); setTimeout(()=>openVideo(v),400); } }
+  else if(k==="vcat"){ if(val==="destacados"||val==="todos"||VIDEOS.some(v=>v.cat===val)){ vcat=val; vmarca=""; vanio=""; shown=12; renderVFilters(); renderVideos(); go("video"); } }
+  else if(k==="fotos"){ if(FOTOS.some(p=>p.cat===val)){ pcat=val; pboda="Todas"; pshown=18; renderPhotos(); go("fotografia"); } }
+  else if(k==="pareja"){ if(FOTOS.some(p=>p.cat==="Bodas"&&p.title===val)){ pcat="Bodas"; pboda=val; pshown=18; renderPhotos(); go("fotografia"); } }
+})();
 </script>
 </body>
 </html>
