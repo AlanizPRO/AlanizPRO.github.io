@@ -141,6 +141,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .modal.open{display:flex}
 .modal .box{width:min(1200px,100%);}
 .modal .frame{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+.modal .frame.photo{aspect-ratio:auto;height:min(78vh,62vw);touch-action:pan-y}
+@media (max-width:860px){.modal .frame.photo{height:72vh}}
+.modal .nav{all:unset;position:absolute;top:50%;transform:translateY(-50%);z-index:3;cursor:pointer;color:#fff;font-size:2.6rem;line-height:1;padding:10px 18px 14px;background:rgba(255,255,255,.08);border-radius:50%}
+.modal .nav:hover{background:rgba(255,255,255,.18)}
+.modal .nav.prev{left:16px}.modal .nav.next{right:16px}
+.modal .nav[hidden]{display:none}
+.modal .count{color:var(--muted);font-size:.8rem;letter-spacing:.15em;white-space:nowrap;align-self:flex-end}
+@media (max-width:860px){.modal .nav{display:none}}
 .modal .frame.v{aspect-ratio:9/16;max-height:82vh;width:auto;margin:0 auto}
 .modal iframe,.modal .frame img{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:contain}
 .modal .cap{display:flex;justify-content:space-between;margin-top:14px;gap:12px}
@@ -290,9 +298,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
   <button class="close" onclick="closeModal()" aria-label="Cerrar">×</button>
+  <button class="nav prev" id="mprev" onclick="stepPhoto(-1)" aria-label="Anterior" hidden>‹</button>
+  <button class="nav next" id="mnext" onclick="stepPhoto(1)" aria-label="Siguiente" hidden>›</button>
   <div class="box">
     <div class="frame" id="mframe"></div>
-    <div class="cap"><div><small id="mcat"></small><h3 id="mtitle"></h3></div></div>
+    <div class="cap"><div><small id="mcat"></small><h3 id="mtitle"></h3></div><span class="count" id="mcount"></span></div>
   </div>
 </div>
 
@@ -346,19 +356,31 @@ function renderVideos(){
 }
 $("#vmore").onclick=()=>{shown+=12;renderVideos()};
 
+let plist=[], pidx=0;
 function openVideo(v){
+  plist=[]; $("#mprev").hidden=$("#mnext").hidden=true; $("#mcount").textContent="";
   const f=$("#mframe"); f.className="frame"+(v.o==='V'?' v':'');
   f.innerHTML=`<iframe src="https://drive.google.com/file/d/${v.id}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
   $("#mcat").textContent=v.client+(v.year?" · "+v.year:""); $("#mtitle").textContent=v.title;
   $("#modal").classList.add("open"); document.body.style.overflow="hidden";
 }
-function openPhoto(p){
-  const f=$("#mframe"); f.className="frame"; f.innerHTML=`<img src="${p.full||p.src}" alt="">`;
+function openPhoto(list,i){
+  plist=list; pidx=(i+list.length)%list.length; const p=list[pidx];
+  const f=$("#mframe"); f.className="frame photo"; f.innerHTML=`<img src="${p.full||p.src}" alt="${p.title||''}">`;
   $("#mcat").textContent=p.cat||""; $("#mtitle").textContent=p.title||"";
+  const many=list.length>1; $("#mprev").hidden=$("#mnext").hidden=!many;
+  $("#mcount").textContent=many?(pidx+1)+" / "+list.length:"";
+  if(many){ [1,-1].forEach(d=>{const n=list[(pidx+d+list.length)%list.length]; new Image().src=n.full||n.src;}); }
   $("#modal").classList.add("open"); document.body.style.overflow="hidden";
 }
-function closeModal(){ $("#modal").classList.remove("open"); $("#mframe").innerHTML=""; document.body.style.overflow=""; }
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+function stepPhoto(d){ if(plist.length>1) openPhoto(plist,pidx+d); }
+(function(){ let x0=null,y0=0; const m=$("#modal");
+  m.addEventListener("touchstart",e=>{ if(!plist.length) return; x0=e.touches[0].clientX; y0=e.touches[0].clientY; },{passive:true});
+  m.addEventListener("touchend",e=>{ if(x0===null) return; const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null;
+    if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)) stepPhoto(dx<0?1:-1); },{passive:true});
+})();
+function closeModal(){ plist=[]; $("#modal").classList.remove("open"); $("#mframe").innerHTML=""; document.body.style.overflow=""; }
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal(); if(!$("#modal").classList.contains("open"))return; if(e.key==="ArrowRight")stepPhoto(1); if(e.key==="ArrowLeft")stepPhoto(-1);});
 
 let pcat="Todas", pshown=18;
 function renderPhotos(){
@@ -369,7 +391,7 @@ function renderPhotos(){
   const list=FOTOS.filter(p=>pcat==="Todas"||p.cat===pcat);
   $("#pmore").style.display=list.length>pshown?"":"none";
   $("#pgrid").innerHTML=list.slice(0,pshown).map(p=>`<figure data-i="${FOTOS.indexOf(p)}"><img loading="lazy" src="${p.src}" width="${p.w||''}" height="${p.h||''}" alt="${p.title||''}"></figure>`).join("");
-  $("#pgrid").querySelectorAll("figure").forEach(f=>f.onclick=()=>openPhoto(FOTOS[f.dataset.i]));
+  $("#pgrid").querySelectorAll("figure").forEach(f=>f.onclick=()=>openPhoto(list,list.indexOf(FOTOS[f.dataset.i])));
 }
 
 function renderContact(){
@@ -385,7 +407,7 @@ function renderContact(){
 }
 
 $("#bts").innerHTML=DETRAS.map((s,i)=>`<button data-i="${i}" aria-label="Ver foto"><img loading="lazy" src="fotos/m/${s}.jpg" alt="Carlos Alaniz trabajando"></button>`).join("");
-$("#bts").querySelectorAll("button").forEach(b=>b.onclick=()=>openPhoto({full:`fotos/g/${DETRAS[b.dataset.i]}.jpg`,cat:"Detrás de cámaras",title:"Carlos Alaniz en acción"}));
+$("#bts").querySelectorAll("button").forEach(b=>b.onclick=()=>openPhoto(DETRAS.map(s=>({full:`fotos/g/${s}.jpg`,cat:"Detrás de cámaras",title:"Carlos Alaniz en acción"})),+b.dataset.i));
 $("#track").innerHTML=[...CLIENTES,...CLIENTES].map(c=>`<span>${c}</span>`).join("");
 $("#statVideos").textContent=VIDEOS.length+"+";
 $("#yr").textContent=new Date().getFullYear();
