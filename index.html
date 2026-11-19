@@ -96,8 +96,17 @@ section{padding:110px 0}
 
 /* SERVICES */
 .services{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.svc{background:var(--bg);padding:34px 28px;transition:background .3s}
-.svc:hover{background:var(--bg2)}
+.svc{background:var(--bg);padding:34px 28px;position:relative;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;min-height:260px;isolation:isolate}
+.svc .bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;opacity:.18;filter:grayscale(.6);transform:scale(1.02);transition:opacity .5s,transform 1.2s,filter .5s}
+.svc::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,10,10,.55),rgba(10,10,10,.92))}
+.svc:hover .bg,.svc:focus-visible .bg{opacity:.75;filter:none;transform:scale(1.1)}
+.svc:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.svc .acts{margin-top:auto;padding-top:22px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.svc .go{color:#fff;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;border-bottom:1px solid var(--accent);padding-bottom:4px;transition:color .3s}
+.svc:hover .go{color:var(--accent)}
+.svc .quote{color:var(--muted);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none}
+.svc .quote:hover{color:#25d366}
+@media (hover:none){.svc .bg{opacity:.4;filter:none}}
 .svc .n{font-family:"Bebas Neue";color:var(--accent);font-size:1.1rem;letter-spacing:.15em}
 .svc h3{font-size:2rem;margin:10px 0 10px}
 .svc p{color:var(--muted);font-size:.95rem}
@@ -249,12 +258,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <p>Desde la idea hasta la entrega final, en formato horizontal para web y vertical para redes.</p>
     </div>
     <div class="services">
-      <div class="svc reveal"><div class="n">01</div><h3>Eventos corporativos</h3><p>Cobertura de lanzamientos, activaciones, ferias y conferencias, con recap listo para redes.</p></div>
-      <div class="svc reveal"><div class="n">02</div><h3>Comerciales y marca</h3><p>Videos de producto, campañas y piezas publicitarias en 4K, con guion, rodaje y edición.</p></div>
-      <div class="svc reveal"><div class="n">03</div><h3>Contenido para redes</h3><p>Reels y videos verticales mensuales para marcas, profesionales y negocios.</p></div>
-      <div class="svc reveal"><div class="n">04</div><h3>15 años y eventos sociales</h3><p>Highlights cinematográficos y fotografía de quinceañeras, cumpleaños y celebraciones.</p></div>
-      <div class="svc reveal"><div class="n">05</div><h3>Conciertos y cultura</h3><p>Registro de presentaciones en vivo, academias y eventos culturales.</p></div>
-      <div class="svc reveal"><div class="n">06</div><h3>Documental</h3><p>Historias reales con sensibilidad social, como la serie <i>La Luz de Diana</i>.</p></div>
+      <div class="svc reveal" data-cat="corporativo" tabindex="0" role="link"><div class="bg"></div><div class="n">01</div><h3>Eventos corporativos</h3><p>Cobertura de lanzamientos, activaciones, ferias y conferencias, con recap listo para redes.</p><div class="acts"><span class="go">Ver trabajos →</span><a class="quote" href="#contacto" data-svc="1">Cotizar</a></div></div>
+      <div class="svc reveal" data-cat="comercial" tabindex="0" role="link"><div class="bg"></div><div class="n">02</div><h3>Comerciales y marca</h3><p>Videos de producto, campañas y piezas publicitarias en 4K, con guion, rodaje y edición.</p><div class="acts"><span class="go">Ver trabajos →</span><a class="quote" href="#contacto" data-svc="1">Cotizar</a></div></div>
+      <div class="svc reveal" data-cat="redes" tabindex="0" role="link"><div class="bg"></div><div class="n">03</div><h3>Contenido para redes</h3><p>Reels y videos verticales mensuales para marcas, profesionales y negocios.</p><div class="acts"><span class="go">Ver trabajos →</span><a class="quote" href="#contacto" data-svc="1">Cotizar</a></div></div>
+      <div class="svc reveal" data-cat="social" tabindex="0" role="link"><div class="bg"></div><div class="n">04</div><h3>15 años y eventos sociales</h3><p>Highlights cinematográficos y fotografía de quinceañeras, cumpleaños y celebraciones.</p><div class="acts"><span class="go">Ver trabajos →</span><a class="quote" href="#contacto" data-svc="1">Cotizar</a></div></div>
+      <div class="svc reveal" data-cat="conciertos" tabindex="0" role="link"><div class="bg"></div><div class="n">05</div><h3>Conciertos y cultura</h3><p>Registro de presentaciones en vivo, academias y eventos culturales.</p><div class="acts"><span class="go">Ver trabajos →</span><a class="quote" href="#contacto" data-svc="1">Cotizar</a></div></div>
+      <div class="svc reveal" data-cat="documental" tabindex="0" role="link"><div class="bg"></div><div class="n">06</div><h3>Documental</h3><p>Historias reales con sensibilidad social, como la serie <i>La Luz de Diana</i>.</p><div class="acts"><span class="go">Ver trabajos →</span><a class="quote" href="#contacto" data-svc="1">Cotizar</a></div></div>
     </div>
   </div>
 </section>
@@ -394,6 +403,18 @@ function renderPhotos(){
   $("#pgrid").querySelectorAll("figure").forEach(f=>f.onclick=()=>openPhoto(list,list.indexOf(FOTOS[f.dataset.i])));
 }
 
+function renderServicios(){
+  document.querySelectorAll(".svc[data-cat]").forEach(card=>{
+    const c=card.dataset.cat, list=VIDEOS.filter(v=>v.cat===c);
+    if(list[0]) card.querySelector(".bg").style.backgroundImage=`url(https://drive.google.com/thumbnail?id=${list[0].id}&sz=w800)`;
+    card.querySelector(".go").textContent=list.length>=3?`Ver ${list.length} videos →`:"Ver trabajos →";
+    const go=()=>{ vcat=list.length?c:"todos"; shown=12; renderVFilters(); renderVideos(); document.getElementById("video").scrollIntoView({behavior:"smooth"}); };
+    card.onclick=e=>{ if(e.target.closest(".quote")) return; go(); };
+    card.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();go();} };
+    const q=card.querySelector(".quote"), name=card.querySelector("h3").textContent;
+    if(CONTACTO.whatsapp){ q.href="https://wa.me/"+CONTACTO.whatsapp+"?text="+encodeURIComponent(`Hola Carlos, vi tu portafolio y quiero cotizar: ${name}.`); q.target="_blank"; q.rel="noopener"; }
+  });
+}
 function renderContact(){
   const rows=[];
   if(CONTACTO.whatsapp){ const u="https://wa.me/"+CONTACTO.whatsapp+"?text="+encodeURIComponent("Hola Carlos, vi tu portafolio y quiero cotizar un proyecto."); rows.push(["WhatsApp","+"+CONTACTO.whatsapp,u]); $("#wa").href=u; $("#wa").target="_blank"; }
@@ -414,7 +435,7 @@ $("#yr").textContent=new Date().getFullYear();
 if(HERO_VIDEO) $("#heroBg").insertAdjacentHTML("afterbegin",`<iframe src="https://drive.google.com/file/d/${HERO_VIDEO}/preview" allow="autoplay"></iframe>`);
 if(RETRATO) $("#portrait").innerHTML=`<img src="${RETRATO}" alt="Carlos Alaniz">`;
 
-renderVFilters(); renderVideos(); renderPhotos(); renderContact();
+renderVFilters(); renderVideos(); renderPhotos(); renderContact(); renderServicios();
 
 /* Títulos de videos desde Google Sheets (si falla, usa la lista de arriba) */
 function parseCSV(s){const r=[];let row=[],f="",q=false;for(let i=0;i<s.length;i++){const c=s[i];
