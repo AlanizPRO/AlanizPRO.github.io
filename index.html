@@ -29,7 +29,9 @@ h1,h2,h3,.display{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;let
 nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,backdrop-filter .3s}
 nav.solid{background:rgba(11,11,12,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
-.logo{font-family:"Bebas Neue";font-size:1.7rem;letter-spacing:.06em}
+.logo{display:block;line-height:0}
+.logo img{height:40px;width:auto}
+@media (max-width:860px){.logo img{height:30px}}
 .logo span{color:var(--accent)}
 .links{display:flex;gap:28px;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
 .links a{opacity:.75;transition:opacity .2s}.links a:hover{opacity:1}
@@ -85,6 +87,13 @@ section{padding:110px 0}
 .vcard:hover .play{background:var(--accent);border-color:var(--accent);color:#111}
 .vcard .tag{position:absolute;top:14px;left:14px;z-index:2;font-size:.62rem;letter-spacing:.15em;padding:4px 8px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);text-transform:uppercase}
 .more{text-align:center;margin-top:34px}
+.vsel{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:-10px 0 26px}
+.vsel label{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase}
+.vsel select{background:var(--card);color:var(--text);border:1px solid var(--line);padding:8px 30px 8px 12px;font:500 .8rem Inter;letter-spacing:.03em;text-transform:none;appearance:none;-webkit-appearance:none;border-radius:0;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 15px) 52%,calc(100% - 10px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.vsel small{color:var(--muted);font-size:.8rem;margin-left:auto}
+.vgrid.feat .vcard:first-child{grid-column:span 2;grid-row:span 2}
+.vgrid.feat .vcard:first-child .info h3{font-size:2.2rem}
+.vnone{color:var(--muted);grid-column:1/-1;padding:30px 0}
 
 /* PHOTO GRID */
 .pgrid{columns:3 280px;column-gap:14px}
@@ -180,7 +189,38 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
   .about,.cgrid{grid-template-columns:1fr;gap:36px}
   .services{grid-template-columns:1fr}
-  section{padding:80px 0}
+  section{padding:64px 0}
+  /* filtros en una sola línea que se desliza con el dedo */
+  .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -20px 22px;padding:0 20px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex:0 0 auto;padding:8px 13px;font-size:.68rem;scroll-snap-align:start}
+  /* videos en 2 columnas */
+  .vgrid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .vcard .info{padding:9px 10px}
+  .vcard .info small{font-size:.55rem;letter-spacing:.12em}
+  .vcard .info h3{font-size:.98rem;line-height:1.1;margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .vcard .play{width:28px;height:28px;top:8px;right:8px}
+  .vcard .play svg{width:10px;height:10px}
+  .vcard .tag{top:8px;left:8px;font-size:.5rem;padding:3px 5px}
+  .vcard .ph{font-size:1.3rem}
+  .vgrid.feat .vcard:first-child{grid-row:auto}
+  .vgrid.feat .vcard:first-child .info h3{font-size:1.4rem}
+  .vsel{gap:10px;margin:-6px 0 20px}
+  .vsel label{flex:1 1 0;min-width:0}
+  .vsel select{width:100%;min-width:0}
+  .vsel small{flex-basis:100%;margin-left:0;font-size:.72rem}
+  /* fotos en 2 columnas */
+  .pgrid{columns:2;column-gap:8px}
+  .pgrid figure{margin-bottom:8px}
+  .more{margin-top:24px}
+  /* servicios más compactos */
+  .svc{min-height:0;padding:26px 22px}
+  .svc h3{font-size:1.7rem}
+  /* contacto: que el correo no choque con la etiqueta */
+  .clist a{font-size:.95rem;gap:12px;padding:18px 0}
+  .clist a span{min-width:0;overflow-wrap:anywhere}
+  .clist a small{flex:0 0 auto;font-size:.6rem}
+  footer{padding-bottom:96px}
 }
 @media (prefers-reduced-motion:reduce){.track{animation:none}.reveal{opacity:1;transform:none}}
 </style>
@@ -189,7 +229,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <nav id="nav">
   <div class="wrap">
-    <a href="#inicio" class="logo">CARLOS <span>ALANIZ</span></a>
+    <a href="#inicio" class="logo"><img src="img/logo.png" alt="Carlos Alaniz · Fotografía | Cinematografía" width="900" height="159"></a>
     <button class="burger" aria-label="Menú" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
     <div class="links" onclick="this.classList.remove('open')">
       <a href="#video">Video</a>
@@ -232,6 +272,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <p>Comerciales, coberturas corporativas, documentales y contenido para redes. Toca cualquier video para verlo.</p>
     </div>
     <div class="filters" id="vfilters"></div>
+    <div class="vsel">
+      <label><span>Marca</span><select id="vmarca"></select></label>
+      <label><span>Año</span><select id="vanio"></select></label>
+      <small id="vcount"></small>
+    </div>
     <div class="vgrid" id="vgrid"></div>
     <div class="more"><button class="btn" id="vmore">Ver más videos</button></div>
   </div>
@@ -330,6 +375,9 @@ const HERO_VIDEO = "";     // id de Drive de un video para el fondo del inicio (
 const RETRATO = "fotos/g/bts-2-19.jpg";  // tu foto para "Sobre mí"
 const DETRAS = ["bts-2-17", "bts-3-7", "bts-1-8", "bts-3-9", "bts-2-0", "bts-3-11", "bts-1-14", "bts-3-12", "bts-1-18", "bts-3-14", "bts-2-29", "bts-3-16", "bts-1-28", "bts-3-17", "bts-2-10", "bts-3-18", "bts-1-0", "bts-3-20", "bts-1-7", "bts-3-21", "bts-1-9", "bts-3-22", "bts-1-12", "bts-3-23", "bts-1-22", "bts-1-27", "bts-2-23"];  // fotos de "Detrás de cámaras" (carpeta fotos/)
 
+// Videos destacados (el primero sale en grande). Se muestran al entrar a la sección.
+const DESTACADOS = ["131kucy7TWAHLhpWN5nZY6wGnlQcqD3Fe","17xOsFWvr1dLuPdRvxG0kHXU9hhlL8gc4","1d612EGJd2U-bZfkeeThBXs2hmkiSDuwu","1J1Yz2zqQHKPR5u5GfMeiMr2RyJnqmJh2","1HysA8E9k86GLHXpXxuLrzhVJPwaiLe_T","1YGLVBxrJpFYf6AobpwtpIQqf8Z7oFyuh","1YIC9StKfnNCX05zVwbA-GO0fMt2ExgCD","1b0GUuqAz1i9Tfahle2fmk7yMu3IN25Zo","1KiawA1WdK5ojMwp9KCN4o_XuVwh-16m5"];
+
 const CATEGORIAS = {
   corporativo:"Eventos corporativos", comercial:"Comerciales y marca", redes:"Contenido para redes",
   social:"15 años y sociales", conciertos:"Conciertos y cultura", documental:"Documental", propios:"Proyectos propios"
@@ -344,24 +392,39 @@ const CLIENTES = ["Moutai","Holcim","Disensa","Unilever","Dove","TRESemmé","Sed
 /* ====== LÓGICA ====== */
 const $=s=>document.querySelector(s);
 const thumb=id=>`https://drive.google.com/thumbnail?id=${id}&sz=w800`;
-let vcat="todos", shown=12;
+let vcat="destacados", vmarca="", vanio="", shown=12;
 function renderVFilters(){
-  const cats=["todos",...Object.keys(CATEGORIAS).filter(c=>VIDEOS.some(v=>v.cat===c))];
-  $("#vfilters").innerHTML=cats.map(c=>`<button class="${c===vcat?'on':''}" data-c="${c}">${c==='todos'?'Todos':CATEGORIAS[c]}</button>`).join("");
-  $("#vfilters").querySelectorAll("button").forEach(b=>b.onclick=()=>{vcat=b.dataset.c;shown=12;renderVFilters();renderVideos()});
+  const cats=["destacados","todos",...Object.keys(CATEGORIAS).filter(c=>VIDEOS.some(v=>v.cat===c))];
+  const label=c=>c==="destacados"?"★ Destacados":c==="todos"?"Todos":CATEGORIAS[c];
+  $("#vfilters").innerHTML=cats.map(c=>`<button class="${c===vcat?'on':''}" data-c="${c}">${label(c)}</button>`).join("");
+  $("#vfilters").querySelectorAll("button").forEach(b=>b.onclick=()=>{vcat=b.dataset.c;if(vcat==="destacados"){vmarca="";vanio="";}shown=12;renderVFilters();renderVideos()});
+  const base=VIDEOS.filter(v=>vcat==="destacados"||vcat==="todos"||v.cat===vcat);
+  const marcas=[...new Set(base.filter(v=>!vanio||v.year===vanio).map(v=>v.client).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+  const anios=[...new Set(base.filter(v=>!vmarca||v.client===vmarca).map(v=>v.year).filter(Boolean))].sort().reverse();
+  if(vmarca&&!marcas.includes(vmarca)) vmarca=""; if(vanio&&!anios.includes(vanio)) vanio="";
+  $("#vmarca").innerHTML=`<option value="">Todas</option>`+marcas.map(m=>`<option ${m===vmarca?"selected":""}>${m}</option>`).join("");
+  $("#vanio").innerHTML=`<option value="">Todos</option>`+anios.map(a=>`<option ${a===vanio?"selected":""}>${a}</option>`).join("");
+}
+$("#vmarca").onchange=e=>{vmarca=e.target.value;if(vcat==="destacados")vcat="todos";shown=12;renderVFilters();renderVideos()};
+$("#vanio").onchange=e=>{vanio=e.target.value;if(vcat==="destacados")vcat="todos";shown=12;renderVFilters();renderVideos()};
+function vlist(){
+  if(vcat==="destacados") return DESTACADOS.map(id=>VIDEOS.find(v=>v.id===id)).filter(Boolean);
+  return VIDEOS.filter(v=>(vcat==="todos"||v.cat===vcat)&&(!vmarca||v.client===vmarca)&&(!vanio||v.year===vanio));
 }
 function renderVideos(){
-  const list=VIDEOS.filter(v=>vcat==="todos"||v.cat===vcat);
-  $("#vgrid").innerHTML=list.slice(0,shown).map((v,i)=>`
+  const list=vlist(), feat=vcat==="destacados";
+  $("#vgrid").classList.toggle("feat",feat);
+  $("#vcount").textContent=feat?"Una selección de mis trabajos favoritos":list.length+(list.length===1?" video":" videos");
+  $("#vgrid").innerHTML=list.length?list.slice(0,feat?99:shown).map((v,i)=>`
     <div class="vcard" data-i="${VIDEOS.indexOf(v)}">
       <div class="ph">${v.client}</div>
       <img loading="lazy" src="${thumb(v.id)}" alt="${v.client} - ${v.title}" onerror="this.remove()">
       ${v.o==='V'?'<span class="tag">Vertical</span>':''}
       <span class="play">▶</span>
       <div class="info"><small>${v.client}${v.year?' · '+v.year:''}</small><h3>${v.title}</h3></div>
-    </div>`).join("");
+    </div>`).join(""):`<p class="vnone">No hay videos con esos filtros.</p>`;
   $("#vgrid").querySelectorAll(".vcard").forEach(c=>c.onclick=()=>openVideo(VIDEOS[c.dataset.i]));
-  $("#vmore").style.display=list.length>shown?"":"none";
+  $("#vmore").style.display=!feat&&list.length>shown?"":"none";
 }
 $("#vmore").onclick=()=>{shown+=12;renderVideos()};
 
@@ -408,7 +471,7 @@ function renderServicios(){
     const c=card.dataset.cat, list=VIDEOS.filter(v=>v.cat===c);
     if(list[0]) card.querySelector(".bg").style.backgroundImage=`url(https://drive.google.com/thumbnail?id=${list[0].id}&sz=w800)`;
     card.querySelector(".go").textContent=list.length>=3?`Ver ${list.length} videos →`:"Ver trabajos →";
-    const go=()=>{ vcat=list.length?c:"todos"; shown=12; renderVFilters(); renderVideos(); document.getElementById("video").scrollIntoView({behavior:"smooth"}); };
+    const go=()=>{ vcat=list.length?c:"todos"; vmarca=""; vanio=""; shown=12; renderVFilters(); renderVideos(); document.getElementById("video").scrollIntoView({behavior:"smooth"}); };
     card.onclick=e=>{ if(e.target.closest(".quote")) return; go(); };
     card.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();go();} };
     const q=card.querySelector(".quote"), name=card.querySelector("h3").textContent;
