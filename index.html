@@ -306,6 +306,7 @@ const CONTACTO = {
   youtube: "",
   tiktok: ""
 };
+const HOJA_TITULOS = "10RPDe0Ov77UVkuA5HqleA31Vcq4gjgtMe2OcOy0rboo"; // Google Sheet donde Carlos edita títulos de videos
 const HERO_VIDEO = "";     // id de Drive de un video para el fondo del inicio (opcional)
 const RETRATO = "fotos/g/bts-2-24.jpg";  // tu foto para "Sobre mí"
 const DETRAS = ["bts-2-17", "bts-1-8", "bts-2-0", "bts-1-14", "bts-1-18", "bts-2-29", "bts-1-28", "bts-2-10", "bts-1-0", "bts-1-7", "bts-1-9", "bts-1-12", "bts-1-22", "bts-1-27", "bts-2-23", "bts-2-19"];  // fotos de "Detrás de cámaras" (carpeta fotos/)
@@ -392,6 +393,29 @@ if(HERO_VIDEO) $("#heroBg").insertAdjacentHTML("afterbegin",`<iframe src="https:
 if(RETRATO) $("#portrait").innerHTML=`<img src="${RETRATO}" alt="Carlos Alaniz">`;
 
 renderVFilters(); renderVideos(); renderPhotos(); renderContact();
+
+/* Títulos de videos desde Google Sheets (si falla, usa la lista de arriba) */
+function parseCSV(s){const r=[];let row=[],f="",q=false;for(let i=0;i<s.length;i++){const c=s[i];
+  if(q){if(c=='"'){if(s[i+1]=='"'){f+='"';i++}else q=false}else f+=c}
+  else if(c=='"')q=true;else if(c==','){row.push(f);f=""}else if(c=='\n'){row.push(f);r.push(row);row=[];f=""}else if(c!='\r')f+=c}
+  if(f||row.length){row.push(f);r.push(row)}return r}
+async function cargarHoja(){
+  if(!HOJA_TITULOS) return;
+  try{
+    const res=await fetch(`https://docs.google.com/spreadsheets/d/${HOJA_TITULOS}/gviz/tq?tqx=out:csv&_=${Date.now()}`);
+    if(!res.ok) return;
+    const rows=parseCSV(await res.text()); if(rows.length<2) return;
+    const inv=Object.fromEntries(Object.entries(CATEGORIAS).map(([k,v])=>[v.toLowerCase(),k]));
+    const list=[];
+    for(const r of rows.slice(1)){
+      const [mostrar,cat,client,title,year,o,id]=r.map(x=>(x||"").trim());
+      if(!id||/^no$/i.test(mostrar)) continue;
+      list.push({id,cat:inv[cat.toLowerCase()]||"comercial",client,title,year,o:/^v/i.test(o)?"V":"H"});
+    }
+    if(list.length){ VIDEOS.length=0; VIDEOS.push(...list); $("#statVideos").textContent=VIDEOS.length+"+"; renderVFilters(); renderVideos(); }
+  }catch(e){}
+}
+cargarHoja();
 
 addEventListener("scroll",()=>$("#nav").classList.toggle("solid",scrollY>40));
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
