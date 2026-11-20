@@ -63,3 +63,7 @@ No convertidos / no subidos (3):
     383.2-398.8, 490.75-505.75, 554.62-572.25, 601.25-614.3, 625.92-641.05, 676.0-689.3 (s)
     con fundidos cortos de audio entre tramos y fundido final. 89.8 s, 11.9 MB.
 PENDIENTE: 13hFFpcubB6bHCvis_tXm7Zlv4wDRRewX  Tendencia - Campana Todo Puede Pasar INISER (V) - sin convertir a proposito; falta confirmar el archivo correcto.
+
+==== Cuarta pasada ====
+13hFFpcubB6bHCvis_tXm7Zlv4wDRRewX  Tendencia - Campana Todo Puede Pasar INISER (V)  <- PORTAFOLIO VIDEOS FINALES/08 MARCAS Y COMERCIOS/TENDENCIAS MATERIAL - GENERAL 2026 (V).mov
+    Unico corte vertical de Todo Puede Pasar (1080x1920, 37.57 s, igual que TPP FINAL V1 horizontal), termina con el logo. Render del 2026-08-12, identico byte a byte a TENDENCIAS MATERIAL/.../GENERAL VERTICAL.mov. La copia LIVIANO (.mp4, 2026-11-18) es solo una version comprimida del mismo corte. Ya no queda pendiente.
