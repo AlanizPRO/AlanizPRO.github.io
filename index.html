@@ -43,7 +43,6 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 @media (max-width:860px){.logo img{height:30px}}
 .logo span{color:var(--accent)}
 .logo{display:flex;align-items:center;gap:10px}
-.logo .ver{font-size:.55rem;letter-spacing:.06em;color:var(--muted);white-space:nowrap;margin-left:4px}
 .links{display:flex;gap:28px;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
 .links a{opacity:.75;transition:opacity .2s}.links a:hover{opacity:1}
 .burger{display:none;background:none;border:0;color:var(--text);font-size:1.6rem;cursor:pointer}
@@ -272,7 +271,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <nav id="nav">
   <div class="wrap">
-    <a href="#inicio" class="logo"><img src="img/logo.png" alt="Carlos Alaniz · Fotografía | Cinematografía" width="900" height="159"><span class="ver">v2026.11.20-c</span></a>
+    <a href="#inicio" class="logo"><img src="img/logo.png" alt="Carlos Alaniz · Fotografía | Cinematografía" width="900" height="159"></a>
     <button class="burger" aria-label="Menú" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
     <div class="links" onclick="this.classList.remove('open')">
       <a href="#video">Video</a>
