@@ -67,3 +67,8 @@ PENDIENTE: 13hFFpcubB6bHCvis_tXm7Zlv4wDRRewX  Tendencia - Campana Todo Puede Pas
 ==== Cuarta pasada ====
 13hFFpcubB6bHCvis_tXm7Zlv4wDRRewX  Tendencia - Campana Todo Puede Pasar INISER (V)  <- PORTAFOLIO VIDEOS FINALES/08 MARCAS Y COMERCIOS/TENDENCIAS MATERIAL - GENERAL 2026 (V).mov
     Unico corte vertical de Todo Puede Pasar (1080x1920, 37.57 s, igual que TPP FINAL V1 horizontal), termina con el logo. Render del 2026-08-12, identico byte a byte a TENDENCIAS MATERIAL/.../GENERAL VERTICAL.mov. La copia LIVIANO (.mp4, 2026-11-18) es solo una version comprimida del mismo corte. Ya no queda pendiente.
+
+==== Quinta pasada ====
+Reconvertidos desde los masters .mov (antes venian de las copias LIVIANO):
+1YGLVBxrJpFYf6AobpwtpIQqf8Z7oFyuh  Todo Puede Pasar (H)  <- TENDENCIAS MATERIAL/.../TPP FINAL V1.mov (37.57 s; identico a PORTAFOLIO VIDEOS FINALES/08.../TENDENCIAS MATERIAL - TODO PUEDE PASAR 2026 (H).mov)
+1hkVD3c0Bbbqth-NoWZuemB82ojVuFMj_  Dona Martha (H)  <- TENDENCIAS MATERIAL/.../DOÑA MARTHA FINAL V1.mov (41.15 s; identico a PORTAFOLIO VIDEOS FINALES/08.../TENDENCIAS MATERIAL - DOÑA MARTHA 2026 (H).mov)
