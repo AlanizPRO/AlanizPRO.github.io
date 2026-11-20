@@ -55,3 +55,11 @@ No convertidos / no subidos (3):
 1A1wP6jqBzC-vbS2G2Ze9RDspk1oUii1K  Mordor Aniversario 2026 - no hay archivo "Aniversario"; existe "MORDOR - VIDEO 4K 2026" pero no se asumio que sea el mismo
 13hFFpcubB6bHCvis_tXm7Zlv4wDRRewX  Tendencia - Campana Todo Puede Pasar INISER (V) - no encontrado (existen "TENDENCIAS MATERIAL - GENERAL 2026 (V)" y renders TPP V1/V2/ptp v3, sin certeza)
 1tTzjmTnf1bKDmah0diX49XPeY5whkfZp  15 Anos Lourdes y Tadeo 2025 - encontrado y convertido, pero dura 16 min y la salida pesa 128 MB; GitHub rechaza archivos de mas de 100 MB. No se subio.
+
+==== Tercera pasada ====
+1A1wP6jqBzC-vbS2G2Ze9RDspk1oUii1K  Mordor Aniversario  <- LIVIANO/02.../MORDOR - VIDEO 4K 2026.mp4 (indicado por Carlos). 140 s, 21.0 MB.
+1tTzjmTnf1bKDmah0diX49XPeY5whkfZp  15 Anos Lourdes y Tadeo 2025 (RESUMEN de 90 s)  <- LIVIANO/04.../15 AÑOS - LOURDES Y TADEO 2025.mp4 (16 min).
+    6 tramos de la parte central, cada uno empezando en un corte del montaje original:
+    383.2-398.8, 490.75-505.75, 554.62-572.25, 601.25-614.3, 625.92-641.05, 676.0-689.3 (s)
+    con fundidos cortos de audio entre tramos y fundido final. 89.8 s, 11.9 MB.
+PENDIENTE: 13hFFpcubB6bHCvis_tXm7Zlv4wDRRewX  Tendencia - Campana Todo Puede Pasar INISER (V) - sin convertir a proposito; falta confirmar el archivo correcto.
