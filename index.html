@@ -431,7 +431,8 @@ const CLIENTES = ["Moutai","Holcim","Disensa","Unilever","Dove","TRESemmé","Sed
 
 /* ====== LÓGICA ====== */
 const $=s=>document.querySelector(s);
-const thumb=id=>`https://drive.google.com/thumbnail?id=${id}&sz=w800`;
+const THUMBS={"1W0lTUYUwAjras_hBsFDy0iC6f6OB3pGn":"img/thumbs/1W0lTUYUwAjras_hBsFDy0iC6f6OB3pGn.jpg"}; // miniaturas a mano (si una no se ve bien, se cambia aquí)
+const thumb=id=>THUMBS[id]||`https://drive.google.com/thumbnail?id=${id}&sz=w800`;
 let vcat="destacados", vmarca="", vanio="", shown=12;
 function renderVFilters(){
   const cats=["destacados","todos",...Object.keys(CATEGORIAS).filter(c=>VIDEOS.some(v=>v.cat===c))];
@@ -517,7 +518,7 @@ function renderPhotos(){
 function renderServicios(){
   document.querySelectorAll(".svc[data-cat]").forEach(card=>{
     const c=card.dataset.cat, list=VIDEOS.filter(v=>v.cat===c);
-    if(list[0]) card.querySelector(".bg").style.backgroundImage=`url(https://drive.google.com/thumbnail?id=${list[0].id}&sz=w800)`;
+    if(list[0]) card.querySelector(".bg").style.backgroundImage=`url(${thumb(list[0].id)})`;
     card.querySelector(".go").textContent=list.length>=3?`Ver ${list.length} videos →`:"Ver trabajos →";
     const go=()=>{ vcat=list.length?c:"todos"; vmarca=""; vanio=""; shown=12; renderVFilters(); renderVideos(); document.getElementById("video").scrollIntoView({behavior:"smooth"}); };
     card.onclick=e=>{ if(e.target.closest(".quote")) return; go(); };
