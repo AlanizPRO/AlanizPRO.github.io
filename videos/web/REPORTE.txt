@@ -26,3 +26,32 @@ Videos de la lista que NO se convirtieron (no hay un original que coincida con s
 1tTzjmTnf1bKDmah0diX49XPeY5whkfZp  15 Anos - Lourdes y Tadeo 2025 - no encontrado
 
 Nota: 1KSZ0blo8PJJ8kcg7vQ2T4iW56KXEDRgj (Plaza Natura Cobertura Festival Chocoart) y 1JmOSGpQMZjdV2BOLWKdc5fS7d-qbApfA (Plaza Natura Reel Chocoart) venian marcados "H" pero el original es vertical 1080x1920; se convirtieron a 720 de ancho (como V) para no agrandarlos.
+
+==== Segunda pasada (busqueda en todo /Volumes/MAC B) ====
+Convertidos (20):
+1DRPMVSGC9zJA4yE62zmfTBjzIVDjOxnG  Holcim Diplomas Lean In Girls  <- PORTAFOLIO VIDEOS FINALES - LIVIANO/01.../HOLCIM - DIPLOMAS LEAN IN GIRLS NICAPHOTO 2026.mp4
+1XgxWdlGTtXD70Aq5IdGgmJS-fGKS6QuD  Moutai Recap Olof Palme  <- MASSIEL MOUTAI/RENDERS MOITAI/MOUTAI RECAP OLOF PALME.mp4 (master 1080p; misma duracion que la version LIVIANO)
+19Wi7gCd6SI85DV9_i6owzZFD-uQuy8ne  Sedal Activacion Septiembre 2024  <- LIVIANO/01.../SEDAL - ACTIVACION SEPTIEMBRE 2024.mp4
+1t-ja4bBu4CE3Tzp8IQIYhnvfd27KDKuO  TRESemme Erick Bendana 2024  <- LIVIANO/01.../TRESEMME - ERICK BENDAÑA 2024 (H).mp4
+1YGLVBxrJpFYf6AobpwtpIQqf8Z7oFyuh  Tendencia - Todo Puede Pasar  <- LIVIANO/02.../TENDENCIAS MATERIAL - TODO PUEDE PASAR 2026 (H).mp4 (el archivo dice "Tendencias Material")
+1nDS9n4GYgR4kcGuQCJD5gDuM4MDby-R4  Mordor Cromart  <- LIVIANO/02.../MORDOR - CROMART 2026 (H).mp4
+1hkVD3c0Bbbqth-NoWZuemB82ojVuFMj_  Tendencia - Dona Martha  <- LIVIANO/02.../TENDENCIAS MATERIAL - DOÑA MARTHA 2026 (H).mp4
+1nfOp2rAJbG_ga4ypNXbkm2Wlu2IaZW6l  Kreativos Reel Don Mario  <- LIVIANO/02.../KREATIVOS - REEL DON MARIO 2026.mp4 (original vertical 1080x1920: convertido a 720 de ancho aunque venia "H")
+1ddyltacT50_bgoqmGWJKZEZzrwbsFyDQ  Wapas Biotopos  <- LIVIANO/02.../WAPAS - BIOTOPOS 4K 2026.mp4 (original vertical 1080x2048: convertido a 720 de ancho aunque venia "H")
+1j1NxpE9SBEKMpro8VE6K2DkDh-ROUXku  Bansbach Reel  <- LIVIANO/02.../BANSBACH - REEL 2026.mp4
+1HysA8E9k86GLHXpXxuLrzhVJPwaiLe_T  Gustazo Chilate  <- LIVIANO/02.../GUSTAZO - CHILATE 2026.mp4
+1zG48hW7ALR23tYKftyN1xcDbo_EDMXmh  Gustazo Industrial  <- LIVIANO/02.../GUSTAZO - INDUSTRIAL 2026.mp4
+1bGgMmAAUPh8dTRtXvijb_-ZZ2TQ3lhsw  Bienes Raices Casa Edificio Escala  <- LIVIANO/02.../BIENES RAICES - CASA EDIFICIO ESCALA 4K 2026.mp4
+18MZx7867yd-d9ljFyKZu8GA3ivqm_gqN  Dove Nutri Reto Reel  <- LIVIANO/02.../DOVE - NUTRI RETO REEL 2024.mp4
+1Mkc5nbbp7kJ6jydLQjgJyk7Rh2H5q053  Gustazo Tutorial Ivania  <- LIVIANO/02.../GUSTAZO - TUTORIAL IVANIA.mp4
+1_CGPp4CCB7-vFHGxYY4Qr30XbY72j0tm  Gustazo Semilla de Jicaro  <- LIVIANO/02.../GUSTAZO - PRODUCTO SEMILLA DE JICARO.mp4
+1ZwYL1CIi0eOc-fJOc4QylCMjH9v2PlnQ  Gustazo Cacao  <- LIVIANO/02.../GUSTAZO - PRODUCTO CACAO.mp4
+1E3hsH6MwjfndQMuYCLtmZ4XW6AziVfBn  Gustazo Pinolillo  <- LIVIANO/02.../GUSTAZO - PRODUCTO PINOLILLO.mp4
+1JRG-FxEKqJbbcw8M1GJ0Kqx18VlzAD1q  Gustazo Policereal  <- LIVIANO/02.../GUSTAZO - PRODUCTO POLICEREAL.mp4
+1A-pDESdDUUImcWN0LgLrNTkB1SeSbq9U  Dr. Matus Reel 01 Nov  <- LIVIANO/03.../DR MATUS - REEL 01 NOV 2026 (V).mp4
+Nota: salvo Moutai Recap, la unica copia con el nombre final esta en "PORTAFOLIO VIDEOS FINALES - LIVIANO" (1080p a ~7.5 Mbps); se uso esa.
+
+No convertidos / no subidos (3):
+1A1wP6jqBzC-vbS2G2Ze9RDspk1oUii1K  Mordor Aniversario 2026 - no hay archivo "Aniversario"; existe "MORDOR - VIDEO 4K 2026" pero no se asumio que sea el mismo
+13hFFpcubB6bHCvis_tXm7Zlv4wDRRewX  Tendencia - Campana Todo Puede Pasar INISER (V) - no encontrado (existen "TENDENCIAS MATERIAL - GENERAL 2026 (V)" y renders TPP V1/V2/ptp v3, sin certeza)
+1tTzjmTnf1bKDmah0diX49XPeY5whkfZp  15 Anos Lourdes y Tadeo 2025 - encontrado y convertido, pero dura 16 min y la salida pesa 128 MB; GitHub rechaza archivos de mas de 100 MB. No se subio.
