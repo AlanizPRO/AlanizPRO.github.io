@@ -494,7 +494,7 @@ let plist=[], pidx=0;
 function openVideo(v){
   plist=[]; $("#mprev").hidden=$("#mnext").hidden=true; $("#mcount").textContent="";
   const f=$("#mframe"); f.className="frame"+(v.o==='V'?' v':'');
-  f.innerHTML=v.local?`<video src="${v.local}" controls playsinline preload="metadata" poster=""></video>`:`<iframe src="https://drive.google.com/file/d/${v.id}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+  f.innerHTML=v.local?`<video src="${v.local}" controls playsinline preload="metadata" poster="${thumb(v.id)}"></video>`:`<iframe src="https://drive.google.com/file/d/${v.id}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
   $("#mcat").textContent=v.client+(v.year?" · "+v.year:""); $("#mtitle").textContent=v.title;
   $("#modal").classList.add("open"); document.body.style.overflow="hidden";
 }
