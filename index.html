@@ -179,7 +179,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .modal.open{display:flex}
 .modal .box{width:min(1200px,100%);}
 .modal .frame{position:relative;width:100%;aspect-ratio:16/9;background:#000}
-.modal .frame.photo{aspect-ratio:auto;height:min(78vh,62vw);touch-action:pan-y}
+.modal .frame.photo{aspect-ratio:auto;height:min(78vh,62vw);touch-action:none;overflow:hidden;cursor:zoom-in}
+.modal .frame.photo img{transform-origin:50% 50%;will-change:transform;user-select:none;-webkit-user-drag:none}
+.modal .frame.photo.zoomed{cursor:grab}
 @media (max-width:860px){.modal .frame.photo{height:72vh}}
 .modal .nav{all:unset;position:absolute;top:50%;transform:translateY(-50%);z-index:3;cursor:pointer;color:#fff;font-size:2.6rem;line-height:1;padding:10px 18px 14px;background:rgba(255,255,255,.08);border-radius:50%}
 .modal .nav:hover{background:rgba(255,255,255,.18)}
@@ -500,7 +502,7 @@ function openVideo(v){
 }
 function openPhoto(list,i){
   plist=list; pidx=(i+list.length)%list.length; const p=list[pidx];
-  const f=$("#mframe"); f.className="frame photo"; f.innerHTML=`<img src="${p.full||p.src}" alt="${p.title||''}">`;
+  const f=$("#mframe"); f.className="frame photo"; f.innerHTML=`<img src="${p.full||p.src}" alt="${p.title||''}" draggable="false">`; resetZ();
   $("#mcat").textContent=p.cat||""; $("#mtitle").textContent=p.title||"";
   const many=list.length>1; $("#mprev").hidden=$("#mnext").hidden=!many;
   $("#mcount").textContent=many?(pidx+1)+" / "+list.length:"";
@@ -508,10 +510,37 @@ function openPhoto(list,i){
   $("#modal").classList.add("open"); document.body.style.overflow="hidden";
 }
 function stepPhoto(d){ if(plist.length>1) openPhoto(plist,pidx+d); }
-(function(){ let x0=null,y0=0; const m=$("#modal");
-  m.addEventListener("touchstart",e=>{ if(!plist.length) return; x0=e.touches[0].clientX; y0=e.touches[0].clientY; },{passive:true});
-  m.addEventListener("touchend",e=>{ if(x0===null) return; const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null;
-    if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)) stepPhoto(dx<0?1:-1); },{passive:true});
+let z={s:1,x:0,y:0}, pts=new Map(), mode=null, sx=0, sy=0, bx=0, by=0, bs=1, d0=0, dx=0, tapT=0;
+function zImg(){ return document.querySelector("#mframe img"); }
+function applyZ(anim){ const im=zImg(); if(!im) return; im.style.transition=anim?"transform .25s ease":"none";
+  im.style.transform=`translate(${z.x}px,${z.y}px) scale(${z.s})`; $("#mframe").classList.toggle("zoomed", z.s>1.01); }
+function resetZ(){ z={s:1,x:0,y:0}; applyZ(false); }
+function clampZ(){ const f=$("#mframe"); const mx=(z.s-1)*f.clientWidth/2, my=(z.s-1)*f.clientHeight/2;
+  z.x=Math.max(-mx,Math.min(mx,z.x)); z.y=Math.max(-my,Math.min(my,z.y)); }
+function pDist(){ const a=[...pts.values()]; return Math.hypot(a[0].x-a[1].x, a[0].y-a[1].y); }
+(function(){ const f=$("#mframe");
+  f.addEventListener("pointerdown",e=>{ if(!plist.length || !f.classList.contains("photo")) return;
+    f.setPointerCapture(e.pointerId); pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pts.size===1){ mode=z.s>1.01?"pan":"swipe"; sx=e.clientX; sy=e.clientY; bx=z.x; by=z.y; dx=0; }
+    else if(pts.size===2){ mode="pinch"; d0=pDist(); bs=z.s; }
+  });
+  f.addEventListener("pointermove",e=>{ if(!pts.has(e.pointerId)) return; pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(mode==="pinch" && pts.size===2){ z.s=Math.max(1,Math.min(4,bs*pDist()/d0)); clampZ(); applyZ(false); }
+    else if(mode==="pan"){ z.x=bx+(e.clientX-sx); z.y=by+(e.clientY-sy); clampZ(); applyZ(false); }
+    else if(mode==="swipe"){ dx=e.clientX-sx; const im=zImg(); if(im){ im.style.transition="none"; im.style.transform=`translateX(${dx}px)`; } }
+  });
+  const up=e=>{ if(!pts.has(e.pointerId)) return; const was=pts.size; pts.delete(e.pointerId);
+    if(pts.size>0){ if(mode==="pinch"){ sx=[...pts.values()][0].x; sy=[...pts.values()][0].y; bx=z.x; by=z.y; mode=z.s>1.01?"pan":null; } return; }
+    const moved=Math.hypot(e.clientX-sx,e.clientY-sy);
+    if(mode==="swipe"){ if(Math.abs(dx)>60){ stepPhoto(dx<0?1:-1); } else applyZ(true); }
+    else if(mode==="pinch"){ if(z.s<1.05){ resetZ(); } else applyZ(true); }
+    else if(mode==="pan"){ clampZ(); applyZ(true); }
+    if(was===1 && moved<10 && e.type==="pointerup"){ const now=Date.now(); if(now-tapT<300){ z = z.s>1.01 ? {s:1,x:0,y:0} : {s:2.5,x:0,y:0}; applyZ(true); tapT=0; } else tapT=now; }
+    mode=null;
+  };
+  f.addEventListener("pointerup",up); f.addEventListener("pointercancel",up);
+  f.addEventListener("wheel",e=>{ if(!plist.length || !f.classList.contains("photo")) return; e.preventDefault();
+    z.s=Math.max(1,Math.min(4,z.s*(e.deltaY<0?1.15:0.87))); if(z.s<=1.01){ z.x=0; z.y=0; } clampZ(); applyZ(false); },{passive:false});
 })();
 function closeModal(){ plist=[]; $("#modal").classList.remove("open"); $("#mframe").innerHTML=""; document.body.style.overflow=""; }
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal(); if(!$("#modal").classList.contains("open"))return; if(e.key==="ArrowRight")stepPhoto(1); if(e.key==="ArrowLeft")stepPhoto(-1);});
