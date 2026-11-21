@@ -26,8 +26,8 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;overscroll-behavior-x:none}
+body{overscroll-behavior-x:none;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
@@ -175,7 +175,8 @@ footer{padding:34px 0;color:var(--muted);font-size:.8rem;border-top:1px solid va
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 /* MODAL */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;overscroll-behavior:contain}
+.modal .cap{touch-action:pan-y}
 .modal.open{display:flex}
 .modal .box{width:min(1200px,100%);}
 .modal .frame{position:relative;width:100%;aspect-ratio:16/9;background:#000}
@@ -406,8 +407,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
   <button class="close" onclick="closeModal()" aria-label="Cerrar">×</button>
-  <button class="nav prev" id="mprev" onclick="stepPhoto(-1)" aria-label="Anterior" hidden>‹</button>
-  <button class="nav next" id="mnext" onclick="stepPhoto(1)" aria-label="Siguiente" hidden>›</button>
+  <button class="nav prev" id="mprev" onclick="stepAny(-1)" aria-label="Anterior" hidden>‹</button>
+  <button class="nav next" id="mnext" onclick="stepAny(1)" aria-label="Siguiente" hidden>›</button>
   <div class="box">
     <div class="frame" id="mframe"></div>
     <div class="cap"><div><small id="mcat"></small><h3 id="mtitle"></h3></div><span class="count" id="mcount"></span></div>
@@ -634,8 +635,23 @@ function siteBase(){ return location.origin+location.pathname; }
 $("#vshare").onclick=()=>copyText(siteBase()+"#vcat="+encodeURIComponent(vcat));
 $("#pshare").onclick=()=>copyText(siteBase()+(pcat==="Bodas"&&pboda!=="Todas" ? "#pareja="+encodeURIComponent(pboda) : "#fotos="+encodeURIComponent(pcat)));
 const _openVideoBase=openVideo;
+let vnlist=[], vidx=0, vnav=false;
+function stepVideo(d){ const n=vnlist.length; if(n<2) return; vidx=(vidx+d+n)%n; vnav=true; openVideo(vnlist[vidx]); }
+function stepAny(d){ if(plist.length>1) stepPhoto(d); else stepVideo(d); }
+(function(){ const cap=document.querySelector("#modal .cap"); let sx=0, sy=0, on=false;
+  cap.addEventListener("pointerdown",e=>{ sx=e.clientX; sy=e.clientY; on=true; });
+  cap.addEventListener("pointerup",e=>{ if(!on) return; on=false; const dx=e.clientX-sx, dy=e.clientY-sy;
+    if(plist.length<1 && Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) stepVideo(dx<0?1:-1); });
+  cap.addEventListener("pointercancel",()=>{ on=false; });
+})();
 openVideo=function(v){
+  if(vnav){ vnav=false; } else {
+    const cards=[...document.querySelectorAll("#vgrid .vcard")].map(c=>VIDEOS[c.dataset.i]).filter(Boolean);
+    vnlist = cards.includes(v) ? cards : [v]; vidx = Math.max(0, vnlist.indexOf(v));
+  }
   _openVideoBase(v);
+  const many=vnlist.length>1; $("#mprev").hidden=$("#mnext").hidden=!many;
+  $("#mcount").textContent=many?(vidx+1)+" / "+vnlist.length:"";
   const link=siteBase()+"#video="+encodeURIComponent(v.id);
   $("#mwa").href="https://wa.me/?text="+encodeURIComponent(`${v.client} · ${v.title}: ${link}`);
   $("#mcopy").onclick=()=>copyText(link);
