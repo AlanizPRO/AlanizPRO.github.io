@@ -667,9 +667,14 @@ openPhoto=function(l,i){ $("#mshare").hidden=true; _openPhotoBase(l,i); };
 let modalHist=false;
 function markModal(){ if(!modalHist){ history.pushState({modal:1},""); modalHist=true; } }
 const _openVideoView=openVideo;
-openVideo=function(v){ const old=document.querySelector("#mframe video"), playing=vnav&&old&&!old.paused;
+openVideo=function(v){ const old=document.querySelector("#mframe video"), playing=vnav&&old&&!old.paused, swap=vnav;
   _openVideoView(v); $("#mframe").style.transform=""; markModal();
-  if(playing){ const nv=document.querySelector("#mframe video"); if(nv) nv.play().catch(()=>{}); } };
+  const nv=document.querySelector("#mframe video");
+  if(nv && swap){ /* al cambiar de video no mostrar la miniatura: fundido desde negro al primer cuadro */
+    nv.removeAttribute("poster"); nv.style.opacity="0";
+    const show=()=>{ nv.style.transition="opacity .25s ease"; nv.style.opacity="1"; };
+    if(nv.readyState>=2) show(); else nv.addEventListener("loadeddata",show,{once:true});
+    if(playing) nv.play().catch(()=>{}); } };
 const _openPhotoView=openPhoto;
 openPhoto=function(l,i){ _openPhotoView(l,i); markModal(); };
 const _closeModalView=closeModal;
