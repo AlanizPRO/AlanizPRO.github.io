@@ -499,7 +499,7 @@ let plist=[], pidx=0;
 function openVideo(v){
   plist=[]; $("#mprev").hidden=$("#mnext").hidden=true; $("#mcount").textContent="";
   const f=$("#mframe"); f.className="frame"+(v.o==='V'?' v':'');
-  f.innerHTML=v.local?`<video src="${v.local}" controls playsinline preload="metadata" poster="${thumb(v.id)}"></video>`:`<iframe src="https://drive.google.com/file/d/${v.id}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+  f.innerHTML=v.local?`<video src="${v.local}#t=0.1" controls playsinline preload="metadata"></video>`:`<iframe src="https://drive.google.com/file/d/${v.id}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
   $("#mcat").textContent=v.client+(v.year?" · "+v.year:""); $("#mtitle").textContent=v.title;
   $("#modal").classList.add("open"); document.body.style.overflow="hidden";
 }
@@ -671,9 +671,9 @@ openVideo=function(v){ const old=document.querySelector("#mframe video"), playin
   _openVideoView(v); $("#mframe").style.transform=""; markModal();
   const nv=document.querySelector("#mframe video");
   if(nv && swap){ /* al cambiar de video no mostrar la miniatura: fundido desde negro al primer cuadro */
-    nv.removeAttribute("poster"); nv.style.opacity="0";
+    nv.style.opacity="0";
     const show=()=>{ nv.style.transition="opacity .25s ease"; nv.style.opacity="1"; };
-    if(nv.readyState>=2) show(); else nv.addEventListener("loadeddata",show,{once:true});
+    if(nv.readyState>=2) show(); else { nv.addEventListener("loadeddata",show,{once:true}); setTimeout(show,500); } /* iPhone no carga el cuadro hasta dar play: sin esto quedaría oculto, sin controles */
     if(playing) nv.play().catch(()=>{}); } };
 const _openPhotoView=openPhoto;
 openPhoto=function(l,i){ _openPhotoView(l,i); markModal(); };
