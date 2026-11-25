@@ -185,6 +185,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 html:has(.modal.open),body:has(.modal.open){overscroll-behavior:none}
 .modal.open{display:flex}
 .modal .box{width:min(1200px,100%);}
+/* Logo como marca de agua sobre los videos */
+.modal .frame img.wm{inset:auto;top:14px;right:14px;width:clamp(84px,15%,170px);height:auto;object-fit:contain;opacity:.28;pointer-events:none;z-index:2;filter:drop-shadow(0 1px 3px rgba(0,0,0,.7))}
 .modal .frame{position:relative;width:100%;aspect-ratio:16/9;background:#000}
 .modal .frame.photo{aspect-ratio:auto;height:min(78vh,62vw);touch-action:none;overflow:hidden;cursor:zoom-in}
 .modal .frame.photo img{transform-origin:50% 50%;will-change:transform;user-select:none;-webkit-user-drag:none}
@@ -702,6 +704,9 @@ addEventListener("popstate",()=>{ if(modalHist) closeModal(true); });
     if(go){ f.style.transition="none"; stepVideo(dx<0?1:-1); } },{passive:true});
   f.addEventListener("touchcancel",()=>{ if(x0!==null) reset(); },{passive:true});
 })();
+/* ---- Logo como marca de agua sobre los videos ---- */
+const _openVideoWM=openVideo;
+openVideo=function(v){ _openVideoWM(v); $("#mframe").insertAdjacentHTML("beforeend",`<img class="wm" src="img/logo.png" alt="" aria-hidden="true">`); };
 /* Abrir la sección o el video que venga en el enlace */
 (function(){
   const h=decodeURIComponent(location.hash.slice(1));
