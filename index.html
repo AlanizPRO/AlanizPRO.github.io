@@ -201,6 +201,8 @@ html:has(.modal.open),body:has(.modal.open){overscroll-behavior:none}
 .modal .frame.v{aspect-ratio:9/16;max-height:82vh;width:auto;margin:0 auto}
 .modal iframe,.modal .frame img{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:contain}
 .modal .frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+/* Marca de agua sobre el video (no en los archivos; no bloquea los controles) */
+.modal .frame:not(.photo)::after{content:"";position:absolute;top:4%;right:3%;width:min(20%,160px);aspect-ratio:900/159;height:auto;background:url("img/logo.png") center/contain no-repeat;opacity:.3;pointer-events:none;z-index:2}
 .modal .cap{display:flex;justify-content:space-between;margin-top:14px;gap:12px}
 .modal .cap h3{font-size:1.8rem}
 .modal .cap small{color:var(--accent);letter-spacing:.2em;text-transform:uppercase;font-size:.7rem}
